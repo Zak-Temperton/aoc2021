@@ -3,13 +3,8 @@ use std::{
     io::{BufRead, BufReader},
 };
 
-fn main() {
-    part1();
-    part2();
-}
-
-fn part1() {
-    let file = File::open("day01/res/input.txt").unwrap();
+pub fn part1() {
+    let file = File::open("res/day01.txt").unwrap();
     let reader = BufReader::new(file);
     let mut last = 0;
     let mut count = -1;
@@ -22,11 +17,11 @@ fn part1() {
             last = curr;
         }
     }
-    println!("{}", count);
+    println!("part1: {}", count);
 }
 
-fn part2() {
-    let file = File::open("day01/res/input.txt").unwrap();
+pub fn part2() {
+    let file = File::open("res/day01.txt").unwrap();
     let reader = BufReader::new(file);
     let mut measurements = Vec::new();
     for line in reader.lines() {
@@ -40,6 +35,5 @@ fn part2() {
             count += 1;
         }
     }
-
-    println!("{}", count);
+    println!("part2: {}", count);
 }
