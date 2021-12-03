@@ -1,6 +1,6 @@
 # Advent of Code 2021
 
-My solutions to Advent of Code 2020 in Rust
+My solutions to Advent of Code 2021 in Rust
 
 | Day | Title | Solution |
 |-----|-------|----------|
