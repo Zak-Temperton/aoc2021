@@ -1,5 +1,6 @@
 mod day01;
 mod day02;
+mod day03;
 fn main() {
     let mut args = std::env::args();
     if args.len() < 2 {
@@ -7,7 +8,7 @@ fn main() {
         println!("cargo run <day>");
         return;
     }
-    args.next(); //executable
+    args.next(); //executable path
     match args.next().unwrap().as_str() {
         "day1" | "day01" | "1" => {
             println!("day01:");
@@ -18,6 +19,11 @@ fn main() {
             println!("day02:");
             day02::part1();
             day02::part2();
+        }
+        "day3" | "day03" | "3" => {
+            println!("day03:");
+            day03::part1();
+            day03::part2();
         }
         _ => println!("Choose a valid day"),
     }
