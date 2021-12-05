@@ -25,7 +25,7 @@ pub(crate) fn part1() {
             }
         }
     }
-    println!("part1: {}", map.iter().filter(|(_, &x)| x >= 2).count());
+    println!("part1: {}", map.into_values().filter(|&x| x >= 2).count());
 }
 
 pub(crate) fn part2() {
@@ -47,5 +47,5 @@ pub(crate) fn part2() {
                 .or_insert(0) += 1;
         }
     }
-    println!("part2: {}", map.iter().filter(|(_, &x)| x >= 2).count());
+    println!("part2: {}", map.into_values().filter(|&x| x >= 2).count());
 }
