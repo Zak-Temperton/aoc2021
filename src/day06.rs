@@ -9,9 +9,10 @@ pub(crate) fn part1() {
     let mut reader = BufReader::new(file);
     let mut line = String::new();
     reader.read_line(&mut line).unwrap();
-    let fish = line.split(',').map(|s| s.parse::<usize>().unwrap());
     let mut trumpetfish = VecDeque::from([0; 9]);
-    fish.for_each(|f| trumpetfish[f] += 1);
+    line.split(',')
+        .map(|s| s.parse::<usize>().unwrap())
+        .for_each(|f| trumpetfish[f] += 1);
     for _ in 0..80 {
         let new_fish = trumpetfish.pop_front().unwrap();
         trumpetfish[6] += new_fish;
@@ -25,9 +26,10 @@ pub(crate) fn part2() {
     let mut reader = BufReader::new(file);
     let mut line = String::new();
     reader.read_line(&mut line).unwrap();
-    let fish = line.split(',').map(|s| s.parse::<usize>().unwrap());
     let mut trumpetfish = VecDeque::from([0; 9]);
-    fish.for_each(|f| trumpetfish[f] += 1);
+    line.split(',')
+        .map(|s| s.parse::<usize>().unwrap())
+        .for_each(|f| trumpetfish[f] += 1);
     for _ in 0..256 {
         let new_fish = trumpetfish.pop_front().unwrap();
         trumpetfish[6] += new_fish;
