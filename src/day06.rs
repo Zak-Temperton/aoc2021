@@ -1,4 +1,5 @@
 use std::{
+    collections::VecDeque,
     fs::File,
     io::{BufRead, BufReader},
 };
@@ -9,16 +10,12 @@ pub(crate) fn part1() {
     let mut line = String::new();
     reader.read_line(&mut line).unwrap();
     let fish = line.split(',').map(|s| s.parse::<usize>().unwrap());
-    let mut trumpetfish = vec![0; 9];
+    let mut trumpetfish = VecDeque::from([0; 9]);
     fish.for_each(|f| trumpetfish[f] += 1);
     for _ in 0..80 {
-        let mut new_fish = vec![0; 9];
-        for i in 0..8 {
-            new_fish[i] = trumpetfish[i + 1];
-        }
-        new_fish[8] = trumpetfish[0];
-        new_fish[6] += trumpetfish[0];
-        trumpetfish = new_fish;
+        let new_fish = trumpetfish.pop_front().unwrap();
+        trumpetfish[6] += new_fish;
+        trumpetfish.push_back(new_fish);
     }
     println!("part1: {}", trumpetfish.iter().sum::<usize>());
 }
@@ -29,16 +26,12 @@ pub(crate) fn part2() {
     let mut line = String::new();
     reader.read_line(&mut line).unwrap();
     let fish = line.split(',').map(|s| s.parse::<usize>().unwrap());
-    let mut trumpetfish = vec![0; 9];
+    let mut trumpetfish = VecDeque::from([0; 9]);
     fish.for_each(|f| trumpetfish[f] += 1);
     for _ in 0..256 {
-        let mut new_fish = vec![0; 9];
-        for i in 0..8 {
-            new_fish[i] = trumpetfish[i + 1];
-        }
-        new_fish[8] = trumpetfish[0];
-        new_fish[6] += trumpetfish[0];
-        trumpetfish = new_fish;
+        let new_fish = trumpetfish.pop_front().unwrap();
+        trumpetfish[6] += new_fish;
+        trumpetfish.push_back(new_fish);
     }
     println!("part2: {}", trumpetfish.iter().sum::<usize>());
 }
