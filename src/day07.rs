@@ -10,7 +10,7 @@ pub(crate) fn part1() {
     let median = crabs[crabs.len() / 2];
     println!(
         "part1: {}",
-        crabs.iter().map(|c| (median - c).abs()).sum::<i32>()
+        crabs.iter().fold(0, |a, c| a + (median - c).abs())
     );
 }
 
