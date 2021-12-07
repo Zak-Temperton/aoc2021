@@ -20,16 +20,15 @@ pub(crate) fn part1() {
             crabs[l] + left_distances[l - 1].1,
         ));
     }
-    let mut right_distances = Vec::with_capacity(crabs.len());
-    right_distances.push((0, crabs[crabs.len() - 1]));
+    let mut right_distances = vec![(0, 0); crabs.len()];
     let right = crabs.len() - 1;
-    for r in 1..crabs.len() {
-        right_distances.push((
-            right_distances[r - 1].0 + right_distances[r - 1].1,
-            crabs[right - r] + right_distances[r - 1].1,
-        ));
+    right_distances[right] = (0, crabs[crabs.len() - 1]);
+    for r in (0..right).rev() {
+        right_distances[r] = (
+            right_distances[r + 1].0 + right_distances[r + 1].1,
+            crabs[r] + right_distances[r + 1].1,
+        );
     }
-    right_distances.reverse();
     println!(
         "part1: {}",
         left_distances
