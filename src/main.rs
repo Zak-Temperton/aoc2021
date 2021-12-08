@@ -7,6 +7,7 @@ mod day04;
 mod day05;
 mod day06;
 mod day07;
+mod day08;
 
 fn main() {
     let mut args = std::env::args();
@@ -54,6 +55,11 @@ fn main() {
             println!("day07:");
             day07::part1();
             day07::part2();
+        }
+        8 => {
+            println!("day08:");
+            day08::part1();
+            day08::part2();
         }
         _ => println!("Choose a valid day"),
     }
