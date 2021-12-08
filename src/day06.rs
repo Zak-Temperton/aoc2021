@@ -1,14 +1,7 @@
-use std::{
-    collections::VecDeque,
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::{collections::VecDeque, fs::read_to_string};
 
 pub(crate) fn part1() {
-    let file = File::open("res/day06.txt").unwrap();
-    let mut reader = BufReader::new(file);
-    let mut line = String::new();
-    reader.read_line(&mut line).unwrap();
+    let line = read_to_string("res/day06.txt").unwrap();
     let mut trumpetfish = VecDeque::from([0; 9]);
     line.split(',')
         .map(|s| s.parse::<usize>().unwrap())
@@ -22,10 +15,7 @@ pub(crate) fn part1() {
 }
 
 pub(crate) fn part2() {
-    let file = File::open("res/day06.txt").unwrap();
-    let mut reader = BufReader::new(file);
-    let mut line = String::new();
-    reader.read_line(&mut line).unwrap();
+    let line = read_to_string("res/day06.txt").unwrap();
     let mut trumpetfish = VecDeque::from([0; 9]);
     line.split(',')
         .map(|s| s.parse::<usize>().unwrap())
