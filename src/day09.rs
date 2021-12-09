@@ -25,11 +25,12 @@ pub(crate) fn part2() {
     let mut map: Vec<Vec<bool>> = read_to_string("res/day09.txt")
         .unwrap()
         .lines()
-        .map(|line| line.bytes().map(|b| b != b'9').collect())
+        .map(|line| line.bytes().map(|b| b != b'9').collect()) // if basin return true else false
         .collect();
     let mut basins = Vec::new();
     for y in 0..map.len() {
         for x in 0..map[0].len() {
+            // find new basin
             if map[y][x] {
                 basins.push(size_of_basin(x, y, &mut map));
             }
@@ -40,8 +41,8 @@ pub(crate) fn part2() {
 }
 
 fn size_of_basin(x: usize, y: usize, map: &mut [Vec<bool>]) -> usize {
-    let mut size = 1;
-    map[y][x] = false;
+    let mut size = 1; // counts itself, function will only be called if location is in a basin
+    map[y][x] = false; // fill basin to prevent recounting
     if x > 0 && map[y][x - 1] {
         size += size_of_basin(x - 1, y, map);
     }
