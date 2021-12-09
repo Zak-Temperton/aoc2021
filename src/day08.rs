@@ -4,9 +4,9 @@ pub(crate) fn part1() {
     let mut count = 0;
     for line in read_to_string("res/day08.txt").unwrap().lines() {
         count += line
-            .split(" | ")
+            .split('|')
             .skip(1)
-            .map(|s| s.split(' '))
+            .map(|s| s.split_whitespace())
             .flatten()
             .fold(0, |f, s| match s.len() {
                 2 | 3 | 4 | 7 => f + 1,
@@ -20,11 +20,11 @@ pub(crate) fn part2() {
     let mut sum = 0;
     for line in read_to_string("res/day08.txt").unwrap().lines() {
         let mut wires = [0; 7];
-        let mut line = line.split(" | ");
+        let mut line = line.split('|');
         let mut list = line
             .next()
             .unwrap()
-            .split(' ')
+            .split_whitespace()
             .map(|s| s.bytes().map(|b| (b - b'a') as usize).collect::<Vec<_>>())
             .collect::<Vec<_>>();
         list.sort_unstable_by_key(|s| s.len());
@@ -67,7 +67,11 @@ pub(crate) fn part2() {
                 break;
             }
         }
-        let digits = line.next().unwrap().split(' ').collect::<Vec<&str>>();
+        let digits = line
+            .next()
+            .unwrap()
+            .split_whitespace()
+            .collect::<Vec<&str>>();
         sum += get_output(&wires, &digits);
     }
     println!("part2: {}", sum);

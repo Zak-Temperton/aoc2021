@@ -78,7 +78,7 @@ pub(crate) fn part2() {
                     lines
                         .next()
                         .unwrap()
-                        .split(' ')
+                        .split_whitespace()
                         .filter(|&x| !x.is_empty())
                         .map(|s| s.parse().unwrap())
                         .collect::<Vec<i32>>(),
