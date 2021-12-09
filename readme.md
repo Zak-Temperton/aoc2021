@@ -11,3 +11,5 @@ My solutions to Advent of Code 2021 in Rust
 | 05 | [Hydrothermal Venture](https://adventofcode.com/2021/day/5)      | [day05.rs](src/day05.rs) |
 | 06 | [Lanternfish](https://adventofcode.com/2021/day/6)               | [day06.rs](src/day06.rs) |
 | 07 | [The Treachery of Whales](https://adventofcode.com/2021/day/7)   | [day07.rs](src/day07.rs) |
+| 08 | [Seven Segment Search](https://adventofcode.com/2021/day/8)      | [day07.rs](src/day08.rs) |
+| 09 | [Smoke Basin](https://adventofcode.com/2021/day/9)               | [day07.rs](src/day09.rs) |
