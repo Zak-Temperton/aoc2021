@@ -40,21 +40,18 @@ pub(crate) fn part2() {
 }
 
 fn size_of_basin(x: usize, y: usize, map: &mut [Vec<bool>]) -> usize {
-    if map[y][x] {
-        return 0;
-    }
     let mut size = 1;
     map[y][x] = true;
-    if x > 0 {
+    if x > 0 && !map[y][x - 1] {
         size += size_of_basin(x - 1, y, map);
     }
-    if x < map[0].len() - 1 {
+    if x < map[0].len() - 1 && !map[y][x + 1] {
         size += size_of_basin(x + 1, y, map);
     }
-    if y > 0 {
+    if y > 0 && !map[y - 1][x] {
         size += size_of_basin(x, y - 1, map);
     }
-    if y < map.len() - 1 {
+    if y < map.len() - 1 && !map[y + 1][x] {
         size += size_of_basin(x, y + 1, map);
     }
     size
