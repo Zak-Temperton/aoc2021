@@ -25,12 +25,12 @@ pub(crate) fn part2() {
     let mut map: Vec<Vec<bool>> = read_to_string("res/day09.txt")
         .unwrap()
         .lines()
-        .map(|line| line.bytes().map(|b| b == b'9').collect())
+        .map(|line| line.bytes().map(|b| b != b'9').collect())
         .collect();
     let mut basins = Vec::new();
     for y in 0..map.len() {
         for x in 0..map[0].len() {
-            if !map[y][x] {
+            if map[y][x] {
                 basins.push(size_of_basin(x, y, &mut map));
             }
         }
@@ -41,17 +41,17 @@ pub(crate) fn part2() {
 
 fn size_of_basin(x: usize, y: usize, map: &mut [Vec<bool>]) -> usize {
     let mut size = 1;
-    map[y][x] = true;
-    if x > 0 && !map[y][x - 1] {
+    map[y][x] = false;
+    if x > 0 && map[y][x - 1] {
         size += size_of_basin(x - 1, y, map);
     }
-    if x < map[0].len() - 1 && !map[y][x + 1] {
+    if x < map[0].len() - 1 && map[y][x + 1] {
         size += size_of_basin(x + 1, y, map);
     }
-    if y > 0 && !map[y - 1][x] {
+    if y > 0 && map[y - 1][x] {
         size += size_of_basin(x, y - 1, map);
     }
-    if y < map.len() - 1 && !map[y + 1][x] {
+    if y < map.len() - 1 && map[y + 1][x] {
         size += size_of_basin(x, y + 1, map);
     }
     size
