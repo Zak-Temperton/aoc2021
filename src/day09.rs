@@ -25,11 +25,7 @@ pub(crate) fn part2() {
     let mut map: Vec<Vec<bool>> = read_to_string("res/day09.txt")
         .unwrap()
         .lines()
-        .map(|line| {
-            line.bytes()
-                .map(|b| if b == b'9' { true } else { false })
-                .collect()
-        })
+        .map(|line| line.bytes().map(|b| b == b'9').collect())
         .collect();
     let mut basins = Vec::new();
     for y in 0..map.len() {
