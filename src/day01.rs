@@ -1,14 +1,9 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::fs::read_to_string;
 
 pub fn part1() {
-    let file = File::open("res/day01.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut last = 0;
     let mut count = -1;
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day01.txt").unwrap().lines() {
         let curr: i32 = line.parse().unwrap();
         if curr > last {
             count += 1;
@@ -19,12 +14,11 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let file = File::open("res/day01.txt").unwrap();
-    let reader = BufReader::new(file);
-    let mut measurements = Vec::new();
-    for line in reader.lines().flatten() {
-        measurements.push(line.parse::<u32>().unwrap());
-    }
+    let measurements = read_to_string("res/day01.txt")
+        .unwrap()
+        .lines()
+        .map(|s| s.parse().unwrap())
+        .collect::<Vec<u32>>();
     let mut count = 0;
     for i in 3..measurements.len() {
         if measurements[i - 3] < measurements[i] {

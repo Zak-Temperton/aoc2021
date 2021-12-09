@@ -1,13 +1,8 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::fs::read_to_string;
 
 pub(crate) fn part1() {
-    let file = File::open("res/day08.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut count = 0;
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day08.txt").unwrap().lines() {
         count += line
             .split(" | ")
             .skip(1)
@@ -22,10 +17,8 @@ pub(crate) fn part1() {
 }
 
 pub(crate) fn part2() {
-    let file = File::open("res/day08.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut sum = 0;
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day08.txt").unwrap().lines() {
         let mut wires = [0; 7];
         let mut line = line.split(" | ");
         let mut list = line

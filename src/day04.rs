@@ -1,12 +1,8 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::fs::read_to_string;
 
 pub(crate) fn part1() {
-    let file = File::open("res/day04.txt").unwrap();
-    let reader = BufReader::new(file);
-    let mut lines = reader.lines().flatten();
+    let text = read_to_string("res/day04.txt").unwrap();
+    let mut lines = text.lines();
     let mut bingos = Vec::new();
     let order = lines
         .next()
@@ -25,7 +21,7 @@ pub(crate) fn part1() {
                     lines
                         .next()
                         .unwrap()
-                        .split(' ')
+                        .split_whitespace()
                         .filter(|&x| !x.is_empty())
                         .map(|s| s.parse().unwrap())
                         .collect::<Vec<i32>>(),
@@ -62,9 +58,8 @@ pub(crate) fn part1() {
     println!("part1: {}", result(bingos));
 }
 pub(crate) fn part2() {
-    let file = File::open("res/day04.txt").unwrap();
-    let reader = BufReader::new(file);
-    let mut lines = reader.lines().flatten();
+    let text = read_to_string("res/day04.txt").unwrap();
+    let mut lines = text.lines();
     let mut bingos = Vec::new();
     let order = lines
         .next()

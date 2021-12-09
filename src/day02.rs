@@ -1,14 +1,9 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::fs::read_to_string;
 
 pub fn part1() {
-    let file = File::open("res/day02.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut x = 0;
     let mut y = 0;
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day02.txt").unwrap().lines() {
         let bytes = line.as_bytes();
         match bytes[0] {
             b'f' => x += (bytes.last().unwrap() - b'0') as u32,
@@ -21,12 +16,10 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let file = File::open("res/day02.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut x = 0;
     let mut y = 0;
     let mut aim = 0;
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day02.txt").unwrap().lines() {
         let bytes = line.as_bytes();
         match bytes[0] {
             b'f' => {

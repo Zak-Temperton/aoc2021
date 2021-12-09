@@ -1,15 +1,9 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    ops::Deref,
-};
+use std::{fs::read_to_string, ops::Deref};
 
 pub fn part1() {
-    let file = File::open("res/day03.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut count = Vec::new();
     let mut len = 0;
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day03.txt").unwrap().lines() {
         if count.is_empty() {
             count = vec![0; line.len()];
         }
@@ -36,11 +30,9 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let file = File::open("res/day03.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut bits = 0;
     let mut o2_nums = Vec::new();
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day03.txt").unwrap().lines() {
         if bits == 0 {
             bits = line.len();
         }

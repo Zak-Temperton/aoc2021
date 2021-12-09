@@ -1,14 +1,8 @@
-use std::{
-    collections::HashMap,
-    fs::File,
-    io::{BufRead, BufReader},
-};
+use std::{collections::HashMap, fs::read_to_string};
 
 pub(crate) fn part1() {
-    let file = File::open("res/day05.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut map = HashMap::new();
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day05.txt").unwrap().lines() {
         let mut split = line
             .split(" -> ")
             .map(|s| s.split(','))
@@ -29,10 +23,8 @@ pub(crate) fn part1() {
 }
 
 pub(crate) fn part2() {
-    let file = File::open("res/day05.txt").unwrap();
-    let reader = BufReader::new(file);
     let mut map = HashMap::new();
-    for line in reader.lines().flatten() {
+    for line in read_to_string("res/day05.txt").unwrap().lines() {
         let mut split = line
             .split(" -> ")
             .map(|s| s.split(','))
