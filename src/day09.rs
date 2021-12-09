@@ -35,7 +35,7 @@ pub(crate) fn part2() {
             }
         }
     }
-    basins.sort_unstable_by(|a, b| b.cmp(&a));
+    basins.sort_unstable_by(|a, b| b.cmp(a));
     println!("part2: {}", basins[..3].iter().product::<usize>());
 }
 
