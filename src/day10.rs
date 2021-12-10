@@ -64,3 +64,18 @@ pub(crate) fn part2() {
     scores.sort_unstable();
     println!("part2: {}", scores[scores.len() / 2]);
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day10_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day10_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
+}

@@ -1,4 +1,4 @@
-use std::{fs::read_to_string, ops::Deref};
+use std::fs::read_to_string;
 
 pub fn part1() {
     let mut count = Vec::new();
@@ -49,23 +49,25 @@ pub fn part2() {
     for i in (0..bits).rev() {
         if o2_nums.len() == 1 {
             break;
-        }
-        let o2_count = count_bits(&o2_nums, i);
-        if o2_count >= o2_nums.len() - o2_count {
-            keep_with_bit(&mut o2_nums, i, 1);
         } else {
-            keep_with_bit(&mut o2_nums, i, 0);
+            let o2_count = count_bits(&o2_nums, i);
+            if o2_count >= o2_nums.len() - o2_count {
+                keep_with_bit(&mut o2_nums, i, 1);
+            } else {
+                keep_with_bit(&mut o2_nums, i, 0);
+            }
         }
     }
     for i in (0..bits).rev() {
-        let co2_count = count_bits(&co2_nums, i);
         if co2_nums.len() == 1 {
             break;
-        }
-        if co2_count >= co2_nums.len() - co2_count {
-            keep_with_bit(&mut co2_nums, i, 0);
         } else {
-            keep_with_bit(&mut co2_nums, i, 1);
+            let co2_count = count_bits(&co2_nums, i);
+            if co2_count >= co2_nums.len() - co2_count {
+                keep_with_bit(&mut co2_nums, i, 0);
+            } else {
+                keep_with_bit(&mut co2_nums, i, 1);
+            }
         }
     }
     println!("part1: {}", o2_nums[0] * co2_nums[0]);
@@ -83,10 +85,25 @@ fn count_bits(nums: &[u32], bit: usize) -> usize {
 
 fn keep_with_bit(nums: &mut Vec<u32>, bit: usize, on_off: u32) {
     let mut new_nums = Vec::new();
-    for &n in nums.deref() {
+    for n in nums.drain(..) {
         if (n >> bit) & 1 == on_off {
             new_nums.push(n);
         }
     }
     *nums = new_nums;
+}
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day03_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day03_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
 }

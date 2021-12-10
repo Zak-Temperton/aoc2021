@@ -27,3 +27,18 @@ pub fn part2() {
     }
     println!("part2: {}", count);
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day01_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day01_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
+}

@@ -103,3 +103,18 @@ fn get_output(wires: &[usize], digits: &[&str]) -> u32 {
     }
     num
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day08_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day08_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
+}

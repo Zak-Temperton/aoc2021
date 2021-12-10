@@ -37,3 +37,18 @@ pub(crate) fn part2() {
     }
     println!("part2: {}", min_cost);
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day07_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day07_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
+}

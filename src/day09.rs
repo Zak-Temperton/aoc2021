@@ -57,3 +57,18 @@ fn size_of_basin(x: usize, y: usize, map: &mut [Vec<bool>]) -> usize {
     }
     size
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day09_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day09_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
+}
