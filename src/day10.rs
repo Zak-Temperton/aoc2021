@@ -60,6 +60,5 @@ pub(crate) fn part2() {
         }
     }
     scores.sort_unstable();
-    println!("{:?}, {}", scores.len(), scores.len() / 2);
     println!("part1: {}", scores[scores.len() / 2]);
 }
