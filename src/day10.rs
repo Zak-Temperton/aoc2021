@@ -2,8 +2,8 @@ use std::fs::read_to_string;
 
 pub(crate) fn part1() {
     let mut points = 0;
+    let mut expected = Vec::new();
     for line in read_to_string("res/day10.txt").unwrap().lines() {
-        let mut expected = Vec::new();
         for c in line.chars() {
             match c {
                 '(' => expected.push(')'),
@@ -22,14 +22,15 @@ pub(crate) fn part1() {
                 _ => {}
             }
         }
+        expected.clear();
     }
     println!("part1: {}", points);
 }
 
 pub(crate) fn part2() {
     let mut scores = Vec::new();
+    let mut expected = Vec::new();
     for line in read_to_string("res/day10.txt").unwrap().lines() {
-        let mut expected = Vec::new();
         let mut incomplete = true;
         for c in line.chars() {
             match c {
@@ -58,7 +59,8 @@ pub(crate) fn part2() {
             }
             scores.push(score);
         }
+        expected.clear();
     }
     scores.sort_unstable();
-    println!("part1: {}", scores[scores.len() / 2]);
+    println!("part2: {}", scores[scores.len() / 2]);
 }
