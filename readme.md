@@ -14,3 +14,4 @@ My solutions to Advent of Code 2021 in Rust
 | 08 | [Seven Segment Search](https://adventofcode.com/2021/day/8)      | [day08.rs](src/day08.rs) |
 | 09 | [Smoke Basin](https://adventofcode.com/2021/day/9)               | [day09.rs](src/day09.rs) |
 | 10 | [Syntax Scoring](https://adventofcode.com/2021/day/10)           | [day10.rs](src/day10.rs) |
+| 11 | [Dumbo Octopus](https://adventofcode.com/2021/day/11)            | [day11.rs](src/day11.rs) |
