@@ -37,9 +37,8 @@ pub(crate) fn part2() {
             .flatten()
             .map(|s| s.parse().unwrap());
         let p1: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
-        let p2: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
-        let dx = p2.0 - p1.0;
-        let dy = p2.1 - p1.1;
+        let dx = split.next().unwrap() - p1.0;
+        let dy = split.next().unwrap() - p1.1;
         let x_sign = dx.signum();
         let y_sign = dy.signum();
         for i in 0..=dx.abs().max(dy.abs()) {
