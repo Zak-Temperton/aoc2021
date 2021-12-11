@@ -43,33 +43,30 @@ pub(crate) fn part2() {
 }
 
 fn try_icrement_charge(x: usize, y: usize, octopuses: &mut [Vec<u8>]) -> usize {
-    if octopuses[y][x] != 0 {
-        if octopuses[y][x] > 9 {
-            octopuses[y][x] = 0;
-            let mut flashes = 1;
-            for i in 0..3 {
-                if (x == 0 && i == 0) || (x == octopuses[0].len() - 1 && i == 2) {
+    if octopuses[y][x] > 9 {
+        octopuses[y][x] = 0;
+        let mut flashes = 1;
+        for i in 0..3 {
+            if (x == 0 && i == 0) || (x == octopuses[0].len() - 1 && i == 2) {
+                continue;
+            }
+            for j in 0..3 {
+                if (y == 0 && j == 0) || (y == octopuses.len() - 1 && j == 2) || (i == 1 && j == 1)
+                {
                     continue;
                 }
-                for j in 0..3 {
-                    if (y == 0 && j == 0)
-                        || (y == octopuses.len() - 1 && j == 2)
-                        || (i == 1 && j == 1)
-                    {
-                        continue;
-                    }
-                    let yy = y + j - 1;
-                    let xx = x + i - 1;
-                    if octopuses[yy][xx] != 0 {
-                        octopuses[yy][xx] += 1;
-                        flashes += try_icrement_charge(xx, yy, octopuses);
-                    }
+                let yy = y + j - 1;
+                let xx = x + i - 1;
+                if octopuses[yy][xx] != 0 {
+                    octopuses[yy][xx] += 1;
+                    flashes += try_icrement_charge(xx, yy, octopuses);
                 }
             }
-            return flashes;
         }
+        flashes
+    } else {
+        0
     }
-    0
 }
 
 #[allow(soft_unstable, unused_imports)]
