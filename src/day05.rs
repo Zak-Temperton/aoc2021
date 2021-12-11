@@ -13,8 +13,10 @@ pub(crate) fn part1() {
         if p1.0 == p2.0 || p1.1 == p2.1 {
             let dx = p2.0 - p1.0;
             let dy = p2.1 - p1.1;
+            let x_sign = dx.signum();
+            let y_sign = dy.signum();
             for i in 0..=dx.abs().max(dy.abs()) {
-                map[(p1.0 + i * dx.signum()) as usize][(p1.1 + i * dy.signum()) as usize] += 1;
+                map[(p1.0 + i * x_sign) as usize][(p1.1 + i * y_sign) as usize] += 1;
             }
         }
     }
@@ -38,8 +40,10 @@ pub(crate) fn part2() {
         let p2: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
         let dx = p2.0 - p1.0;
         let dy = p2.1 - p1.1;
+        let x_sign = dx.signum();
+        let y_sign = dy.signum();
         for i in 0..=dx.abs().max(dy.abs()) {
-            map[(p1.0 + i * dx.signum()) as usize][(p1.1 + i * dy.signum()) as usize] += 1;
+            map[(p1.0 + i * x_sign) as usize][(p1.1 + i * y_sign) as usize] += 1;
         }
     }
     println!(
