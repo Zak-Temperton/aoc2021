@@ -15,4 +15,5 @@ My solutions to Advent of Code 2021 in Rust
 | 09 | [Smoke Basin](https://adventofcode.com/2021/day/9)               | [day09.rs](src/day09.rs) |
 | 10 | [Syntax Scoring](https://adventofcode.com/2021/day/10)           | [day10.rs](src/day10.rs) |
 | 11 | [Dumbo Octopus](https://adventofcode.com/2021/day/11)            | [day11.rs](src/day11.rs) |
-| 12 | [Passage Pathing](https://adventofcode.com/2021/day/12)            | [day12.rs](src/day12.rs) |
+| 12 | [Passage Pathing](https://adventofcode.com/2021/day/12)          | [day12.rs](src/day12.rs) |
+| 13 | [Transparent Origami](https://adventofcode.com/2021/day/13)      | [day13.rs](src/day13.rs) |
