@@ -17,3 +17,4 @@ My solutions to Advent of Code 2021 in Rust
 | 11 | [Dumbo Octopus](https://adventofcode.com/2021/day/11)            | [day11.rs](src/day11.rs) |
 | 12 | [Passage Pathing](https://adventofcode.com/2021/day/12)          | [day12.rs](src/day12.rs) |
 | 13 | [Transparent Origami](https://adventofcode.com/2021/day/13)      | [day13.rs](src/day13.rs) |
+| 14 | [Extended Polymerization](https://adventofcode.com/2021/day/14)  | [day14.rs](src/day14.rs) |
