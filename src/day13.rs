@@ -115,3 +115,18 @@ pub(crate) fn part2() {
     .unwrap();
     println!("part2: day13.png");
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn day13_part1(b: &mut Bencher) {
+        b.iter(part1);
+    }
+    #[bench]
+    fn day13_part2(b: &mut Bencher) {
+        b.iter(part2);
+    }
+}
