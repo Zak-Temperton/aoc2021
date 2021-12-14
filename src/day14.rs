@@ -51,13 +51,16 @@ pub(crate) fn part1() {
         }
     }
     counts[(*template.last().unwrap() - b'A') as usize] += 1;
-    println!(
-        "part1: {}",
-        *counts.iter().max().unwrap()
-            - counts
-                .iter()
-                .fold(u64::MAX, |a, &c| if c != 0 && c < a { c } else { a })
-    )
+    let (max, min) = counts.iter().fold((u64::MIN, u64::MAX), |(max, min), &c| {
+        if c != 0 && c < min {
+            (max, c)
+        } else if c > max {
+            (c, min)
+        } else {
+            (max, min)
+        }
+    });
+    println!("part2: {}", max - min)
 }
 
 pub(crate) fn part2() {
@@ -111,13 +114,16 @@ pub(crate) fn part2() {
         }
     }
     counts[(*template.last().unwrap() - b'A') as usize] += 1;
-    println!(
-        "part2: {}",
-        *counts.iter().max().unwrap()
-            - counts
-                .iter()
-                .fold(u64::MAX, |a, &c| if c != 0 && c < a { c } else { a })
-    )
+    let (max, min) = counts.iter().fold((u64::MIN, u64::MAX), |(max, min), &c| {
+        if c != 0 && c < min {
+            (max, c)
+        } else if c > max {
+            (c, min)
+        } else {
+            (max, min)
+        }
+    });
+    println!("part2: {}", max - min)
 }
 
 #[allow(soft_unstable, unused_imports)]
