@@ -38,14 +38,14 @@ fn solve(loops: usize) {
             split.next().unwrap().as_bytes()[0],
         );
     }
-    let mut rule_result = HashMap::new();
+    let mut rule_result = HashMap::with_capacity(rules.len());
     for (&k, &r) in rules.iter() {
         let mut count = [0; 26];
         count[(r - b'A') as usize] += 1;
         rule_result.insert(k, count);
     }
     for _ in 0..loops - 1 {
-        let mut new_results = HashMap::new();
+        let mut new_results = HashMap::with_capacity(rules.len());
         for (&k, &r) in rules.iter() {
             let mut count = *rule_result.get(&[k[0], r].as_ref()).unwrap();
             for (i, c) in rule_result
