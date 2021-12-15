@@ -1,4 +1,4 @@
-use std::collections::{HashSet, VecDeque};
+use std::collections::VecDeque;
 
 pub(crate) fn part1(text: &str) {
     let map = text
