@@ -1,4 +1,4 @@
-pub fn part1(text: &String) {
+pub fn part1(text: &str) {
     let mut count = Vec::new();
     let mut len = 0;
     for line in text.lines() {
@@ -27,7 +27,7 @@ pub fn part1(text: &String) {
     println!("part1: {}", gamma * epsilon);
 }
 
-pub fn part2(text: &String) {
+pub fn part2(text: &str) {
     let mut bits = 0;
     let mut o2_nums = Vec::new();
     for line in text.lines() {

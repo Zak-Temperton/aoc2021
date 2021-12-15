@@ -1,4 +1,4 @@
-pub fn part1(text: &String) {
+pub fn part1(text: &str) {
     let mut last = 0;
     let mut count = -1;
     for line in text.lines() {
@@ -11,7 +11,7 @@ pub fn part1(text: &String) {
     println!("part1: {}", count);
 }
 
-pub fn part2(text: &String) {
+pub fn part2(text: &str) {
     let measurements = text
         .lines()
         .map(|s| s.parse().unwrap())

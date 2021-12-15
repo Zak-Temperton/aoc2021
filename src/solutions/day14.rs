@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 
-pub(crate) fn part1(text: &String) {
+pub(crate) fn part1(text: &str) {
     solve(10, text);
 }
 
-pub(crate) fn part2(text: &String) {
+pub(crate) fn part2(text: &str) {
     solve(40, text);
 }
 
-fn solve(loops: usize, text: &String) {
+fn solve(loops: usize, text: &str) {
     let mut lines = text.lines();
     let template = lines.next().unwrap().as_bytes().to_vec();
     if loops == 0 {

@@ -1,4 +1,4 @@
-pub fn part1(text: &String) {
+pub fn part1(text: &str) {
     let mut x = 0;
     let mut y = 0;
     for line in text.lines() {
@@ -13,7 +13,7 @@ pub fn part1(text: &String) {
     println!("part1: {}", x * y);
 }
 
-pub fn part2(text: &String) {
+pub fn part2(text: &str) {
     let mut x = 0;
     let mut y = 0;
     let mut aim = 0;

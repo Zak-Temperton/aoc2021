@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-pub(crate) fn part1(text: &String) {
+pub(crate) fn part1(text: &str) {
     let mut caves = HashMap::new();
     for line in text.lines() {
         let mut paths = line.split('-');
@@ -34,7 +34,7 @@ fn traverse_caves1<'a>(
     paths
 }
 
-pub(crate) fn part2(text: &String) {
+pub(crate) fn part2(text: &str) {
     let mut caves = HashMap::new();
     for line in text.lines() {
         let mut paths = line.split('-');

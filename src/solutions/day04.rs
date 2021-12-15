@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &String) {
+pub(crate) fn part1(text: &str) {
     let mut lines = text.lines();
     let mut bingos = Vec::new();
     let order = lines
@@ -63,7 +63,7 @@ fn result1(mut bingos: Vec<Vec<Vec<i32>>>, order: Vec<i32>) -> i32 {
     0
 }
 
-pub(crate) fn part2(text: &String) {
+pub(crate) fn part2(text: &str) {
     let mut lines = text.lines();
     let mut bingos = Vec::new();
     let order = lines
