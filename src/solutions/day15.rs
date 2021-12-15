@@ -36,35 +36,7 @@ pub(crate) fn part1(text: &str) {
         .lines()
         .map(|l| l.bytes().map(|b| (b - b'0') as u64).collect())
         .collect::<Vec<Vec<_>>>();
-    let mut explored = vec![vec![u64::MAX; map[0].len()]; map.len()];
-    let mut queue = BinaryHeap::new();
-    explored[0][0] = 0;
-    queue.push(Location::new(0, 0, 0));
-    while let Some(location) = queue.pop() {
-        let x = location.x;
-        let y = location.y;
-        let value = location.value;
-        if x == map.len() - 1 && y == map[0].len() - 1 {
-            break;
-        }
-        if x < map.len() - 1 && map[x + 1][y] + value < explored[x + 1][y] {
-            explored[x + 1][y] = value + map[x + 1][y];
-            queue.push(Location::new(x + 1, y, explored[x + 1][y]));
-        }
-        if x > 0 && map[x - 1][y] + value < explored[x - 1][y] {
-            explored[x - 1][y] = value + map[x - 1][y];
-            queue.push(Location::new(x - 1, y, explored[x - 1][y]));
-        }
-        if y < map[0].len() - 1 && map[x][y + 1] + value < explored[x][y + 1] {
-            explored[x][y + 1] = value + map[x][y + 1];
-            queue.push(Location::new(x, y + 1, explored[x][y + 1]));
-        }
-        if y > 0 && map[x][y - 1] + value < explored[x][y - 1] {
-            explored[x][y - 1] = value + map[x][y - 1];
-            queue.push(Location::new(x, y - 1, explored[x][y - 1]));
-        }
-    }
-    println!("part1: {}", *explored.last().unwrap().last().unwrap());
+    find_shortest_path(map);
 }
 
 pub(crate) fn part2(text: &str) {
@@ -73,18 +45,22 @@ pub(crate) fn part2(text: &str) {
         .map(|l| l.bytes().map(|b| (b - b'0') as u64).collect())
         .collect::<Vec<Vec<_>>>();
     extend_map(&mut map);
-    let mut explored = vec![vec![u64::MAX; map[0].len()]; map.len()];
+    find_shortest_path(map);
+}
+
+fn find_shortest_path(map: Vec<Vec<u64>>) {
+    let width = map.len() - 1;
+    let height = map[0].len() - 1;
+    let mut explored = vec![vec![u64::MAX; height + 1]; width + 1];
     let mut queue = BinaryHeap::new();
     explored[0][0] = 0;
     queue.push(Location::new(0, 0, 0));
     while let Some(location) = queue.pop() {
-        let x = location.x;
-        let y = location.y;
-        let value = location.value;
-        if x == map.len() - 1 && y == map[0].len() - 1 {
+        let (x, y, value) = (location.x, location.y, location.value);
+        if x == width && y == height {
             break;
         }
-        if x < map.len() - 1 && map[x + 1][y] + value < explored[x + 1][y] {
+        if x < width && map[x + 1][y] + value < explored[x + 1][y] {
             explored[x + 1][y] = value + map[x + 1][y];
             queue.push(Location::new(x + 1, y, explored[x + 1][y]));
         }
@@ -92,7 +68,7 @@ pub(crate) fn part2(text: &str) {
             explored[x - 1][y] = value + map[x - 1][y];
             queue.push(Location::new(x - 1, y, explored[x - 1][y]));
         }
-        if y < map[0].len() - 1 && map[x][y + 1] + value < explored[x][y + 1] {
+        if y < height && map[x][y + 1] + value < explored[x][y + 1] {
             explored[x][y + 1] = value + map[x][y + 1];
             queue.push(Location::new(x, y + 1, explored[x][y + 1]));
         }
@@ -122,6 +98,7 @@ fn extend_map(map: &mut Vec<Vec<u64>>) {
 fn increment_column(col: &[u64], num: u64) -> Vec<u64> {
     col.iter().map(|i| ((i - 1 + num) % 9) + 1).collect()
 }
+
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
