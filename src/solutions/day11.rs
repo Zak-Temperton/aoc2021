@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let mut octopuses: Vec<Vec<u8>> = text
         .lines()
@@ -70,6 +68,7 @@ fn try_icrement_charge(x: usize, y: usize, octopuses: &mut [Vec<u8>]) -> usize {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

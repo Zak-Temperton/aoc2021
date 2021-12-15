@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub fn part1(text: &String) {
     let mut count = Vec::new();
     let mut len = 0;
@@ -96,6 +94,7 @@ fn keep_with_bit(nums: &mut Vec<u32>, bit: usize, on_off: u32) {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

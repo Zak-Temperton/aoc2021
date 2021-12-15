@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let mut map = vec![vec![0; 1000]; 1000];
     for line in text.lines() {
@@ -56,6 +54,7 @@ pub(crate) fn part2(text: &String) {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

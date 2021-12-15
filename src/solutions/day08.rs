@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let mut count = 0;
     for line in text.lines() {
@@ -107,6 +105,7 @@ fn get_output(wires: &[usize], digits: &[&str]) -> u32 {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

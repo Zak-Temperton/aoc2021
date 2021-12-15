@@ -1,4 +1,4 @@
-use std::{collections::VecDeque, fs::read_to_string};
+use std::collections::VecDeque;
 
 pub(crate) fn part1(text: &String) {
     let mut trumpetfish = VecDeque::from([0; 9]);
@@ -29,6 +29,7 @@ pub(crate) fn part2(text: &String) {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

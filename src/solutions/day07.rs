@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let mut crabs: Vec<i32> = text.split(',').map(|s| s.parse().unwrap()).collect();
     crabs.sort_unstable();
@@ -32,6 +30,7 @@ pub(crate) fn part2(text: &String) {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

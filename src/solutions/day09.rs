@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let map: Vec<Vec<u8>> = text
         .lines()
@@ -59,6 +57,7 @@ fn size_of_basin(x: usize, y: usize, map: &mut [Vec<bool>]) -> usize {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

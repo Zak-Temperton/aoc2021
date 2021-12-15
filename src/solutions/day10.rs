@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let mut points = 0;
     let mut expected = Vec::new();
@@ -69,6 +67,7 @@ pub(crate) fn part2(text: &String) {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub fn part1(text: &String) {
     let mut last = 0;
     let mut count = -1;
@@ -30,6 +28,7 @@ pub fn part2(text: &String) {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

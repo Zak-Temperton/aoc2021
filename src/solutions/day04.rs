@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub(crate) fn part1(text: &String) {
     let mut lines = text.lines();
     let mut bingos = Vec::new();
@@ -144,6 +142,7 @@ fn result2(mut bingos: Vec<Vec<Vec<i32>>>, order: Vec<i32>) -> i32 {
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

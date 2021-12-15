@@ -1,7 +1,4 @@
-use std::{
-    collections::{HashMap, HashSet},
-    fs::read_to_string,
-};
+use std::collections::{HashMap, HashSet};
 
 pub(crate) fn part1(text: &String) {
     let mut caves = HashMap::new();
@@ -78,6 +75,7 @@ fn traverse_caves2<'a>(
 #[allow(soft_unstable, unused_imports)]
 mod bench {
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]

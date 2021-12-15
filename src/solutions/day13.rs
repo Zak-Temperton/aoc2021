@@ -114,9 +114,8 @@ pub(crate) fn part2(text: &String) {
 
 #[allow(soft_unstable, unused_imports)]
 mod bench {
-    use std::fs::read_to_string;
-
     use super::*;
+    use std::fs::read_to_string;
     use test::Bencher;
 
     #[bench]
