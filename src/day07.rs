@@ -1,11 +1,7 @@
 use std::fs::read_to_string;
 
-pub(crate) fn part1() {
-    let mut crabs: Vec<i32> = read_to_string("res/day07.txt")
-        .unwrap()
-        .split(',')
-        .map(|s| s.parse().unwrap())
-        .collect();
+pub(crate) fn part1(text: &String) {
+    let mut crabs: Vec<i32> = text.split(',').map(|s| s.parse().unwrap()).collect();
     crabs.sort_unstable();
     let median = crabs[crabs.len() / 2];
     println!(
@@ -14,13 +10,8 @@ pub(crate) fn part1() {
     );
 }
 
-pub(crate) fn part2() {
-    let crabs: Vec<isize> = read_to_string("res/day07.txt")
-        .unwrap()
-        .split(',')
-        .map(|s| s.parse().unwrap())
-        .collect();
-
+pub(crate) fn part2(text: &String) {
+    let crabs: Vec<isize> = text.split(',').map(|s| s.parse().unwrap()).collect();
     let min = *crabs.iter().min().unwrap();
     let max = *crabs.iter().max().unwrap();
 
@@ -45,10 +36,12 @@ mod bench {
 
     #[bench]
     fn day07_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day07.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day07_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day07.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

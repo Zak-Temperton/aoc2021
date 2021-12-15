@@ -1,9 +1,9 @@
 use std::fs::read_to_string;
 
-pub(crate) fn part1() {
+pub(crate) fn part1(text: &String) {
     let mut points = 0;
     let mut expected = Vec::new();
-    for line in read_to_string("res/day10.txt").unwrap().lines() {
+    for line in text.lines() {
         for c in line.chars() {
             match c {
                 '(' => expected.push(')'),
@@ -28,10 +28,10 @@ pub(crate) fn part1() {
     println!("part1: {}", points);
 }
 
-pub(crate) fn part2() {
+pub(crate) fn part2(text: &String) {
     let mut scores = Vec::new();
     let mut expected = Vec::new();
-    for line in read_to_string("res/day10.txt").unwrap().lines() {
+    for line in text.lines() {
         let mut incomplete = true;
         for c in line.chars() {
             match c {
@@ -73,10 +73,12 @@ mod bench {
 
     #[bench]
     fn day10_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day10.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day10_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day10.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

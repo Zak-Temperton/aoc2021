@@ -1,8 +1,7 @@
 use std::fs::read_to_string;
 
-pub(crate) fn part1() {
-    let mut octopuses: Vec<Vec<u8>> = read_to_string("res/day11.txt")
-        .unwrap()
+pub(crate) fn part1(text: &String) {
+    let mut octopuses: Vec<Vec<u8>> = text
         .lines()
         .map(|l| l.bytes().map(|b| b - b'0').collect())
         .collect();
@@ -18,9 +17,8 @@ pub(crate) fn part1() {
     println!("part1: {}", flashes);
 }
 
-pub(crate) fn part2() {
-    let mut octopuses: Vec<Vec<u8>> = read_to_string("res/day11.txt")
-        .unwrap()
+pub(crate) fn part2(text: &String) {
+    let mut octopuses: Vec<Vec<u8>> = text
         .lines()
         .map(|l| l.bytes().map(|b| b - b'0').collect())
         .collect();
@@ -76,10 +74,12 @@ mod bench {
 
     #[bench]
     fn day11_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day11.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day11_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day11.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

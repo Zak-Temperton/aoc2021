@@ -1,8 +1,8 @@
 use std::fs::read_to_string;
 
-pub(crate) fn part1() {
+pub(crate) fn part1(text: &String) {
     let mut count = 0;
-    for line in read_to_string("res/day08.txt").unwrap().lines() {
+    for line in text.lines() {
         count += line
             .split('|')
             .skip(1)
@@ -16,9 +16,9 @@ pub(crate) fn part1() {
     println!("part1: {}", count);
 }
 
-pub(crate) fn part2() {
+pub(crate) fn part2(text: &String) {
     let mut sum = 0;
-    for line in read_to_string("res/day08.txt").unwrap().lines() {
+    for line in text.lines() {
         let mut wires = [0; 7];
         let mut line = line.split('|');
         let mut list = line
@@ -111,10 +111,12 @@ mod bench {
 
     #[bench]
     fn day08_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day08.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day08_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day08.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

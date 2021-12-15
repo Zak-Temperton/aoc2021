@@ -3,9 +3,8 @@ use std::{
     fs::read_to_string,
 };
 
-pub(crate) fn part1() {
+pub(crate) fn part1(text: &String) {
     let mut caves = HashMap::new();
-    let text = read_to_string("res/day12.txt").unwrap();
     for line in text.lines() {
         let mut paths = line.split('-');
         let path1 = paths.next().unwrap();
@@ -38,9 +37,8 @@ fn traverse_caves1<'a>(
     paths
 }
 
-pub(crate) fn part2() {
+pub(crate) fn part2(text: &String) {
     let mut caves = HashMap::new();
-    let text = read_to_string("res/day12.txt").unwrap();
     for line in text.lines() {
         let mut paths = line.split('-');
         let path1 = paths.next().unwrap();
@@ -84,10 +82,12 @@ mod bench {
 
     #[bench]
     fn day12_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day12.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day12_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day12.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

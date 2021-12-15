@@ -1,9 +1,9 @@
 use std::fs::read_to_string;
 
-pub fn part1() {
+pub fn part1(text: &String) {
     let mut last = 0;
     let mut count = -1;
-    for line in read_to_string("res/day01.txt").unwrap().lines() {
+    for line in text.lines() {
         let curr: i32 = line.parse().unwrap();
         if curr > last {
             count += 1;
@@ -13,9 +13,8 @@ pub fn part1() {
     println!("part1: {}", count);
 }
 
-pub fn part2() {
-    let measurements = read_to_string("res/day01.txt")
-        .unwrap()
+pub fn part2(text: &String) {
+    let measurements = text
         .lines()
         .map(|s| s.parse().unwrap())
         .collect::<Vec<u32>>();
@@ -35,10 +34,12 @@ mod bench {
 
     #[bench]
     fn day01_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day01.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day01_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day01.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

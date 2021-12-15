@@ -1,9 +1,9 @@
 use std::fs::read_to_string;
 
-pub fn part1() {
+pub fn part1(text: &String) {
     let mut x = 0;
     let mut y = 0;
-    for line in read_to_string("res/day02.txt").unwrap().lines() {
+    for line in text.lines() {
         let bytes = line.as_bytes();
         match bytes[0] {
             b'f' => x += (bytes.last().unwrap() - b'0') as u32,
@@ -15,11 +15,11 @@ pub fn part1() {
     println!("part1: {}", x * y);
 }
 
-pub fn part2() {
+pub fn part2(text: &String) {
     let mut x = 0;
     let mut y = 0;
     let mut aim = 0;
-    for line in read_to_string("res/day02.txt").unwrap().lines() {
+    for line in text.lines() {
         let bytes = line.as_bytes();
         match bytes[0] {
             b'f' => {
@@ -42,10 +42,12 @@ mod bench {
 
     #[bench]
     fn day02_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day02.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day02_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day02.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

@@ -1,15 +1,14 @@
 use std::{collections::HashMap, fs::read_to_string};
 
-pub(crate) fn part1() {
-    solve(10);
+pub(crate) fn part1(text: &String) {
+    solve(10, text);
 }
 
-pub(crate) fn part2() {
-    solve(40);
+pub(crate) fn part2(text: &String) {
+    solve(40, text);
 }
 
-fn solve(loops: usize) {
-    let text = read_to_string("res/day14.txt").unwrap();
+fn solve(loops: usize, text: &String) {
     let mut lines = text.lines();
     let template = lines.next().unwrap().as_bytes().to_vec();
     if loops == 0 {
@@ -93,10 +92,12 @@ mod bench {
 
     #[bench]
     fn day14_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day14.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day14_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day14.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

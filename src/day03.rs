@@ -1,9 +1,9 @@
 use std::fs::read_to_string;
 
-pub fn part1() {
+pub fn part1(text: &String) {
     let mut count = Vec::new();
     let mut len = 0;
-    for line in read_to_string("res/day03.txt").unwrap().lines() {
+    for line in text.lines() {
         if count.is_empty() {
             count = vec![0; line.len()];
         }
@@ -29,10 +29,10 @@ pub fn part1() {
     println!("part1: {}", gamma * epsilon);
 }
 
-pub fn part2() {
+pub fn part2(text: &String) {
     let mut bits = 0;
     let mut o2_nums = Vec::new();
-    for line in read_to_string("res/day03.txt").unwrap().lines() {
+    for line in text.lines() {
         if bits == 0 {
             bits = line.len();
         }
@@ -100,10 +100,12 @@ mod bench {
 
     #[bench]
     fn day03_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day03.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day03_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day03.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

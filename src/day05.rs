@@ -1,8 +1,8 @@
 use std::fs::read_to_string;
 
-pub(crate) fn part1() {
+pub(crate) fn part1(text: &String) {
     let mut map = vec![vec![0; 1000]; 1000];
-    for line in read_to_string("res/day05.txt").unwrap().lines() {
+    for line in text.lines() {
         let mut split = line
             .split(" -> ")
             .map(|s| s.split(','))
@@ -28,9 +28,9 @@ pub(crate) fn part1() {
     );
 }
 
-pub(crate) fn part2() {
+pub(crate) fn part2(text: &String) {
     let mut map = vec![vec![0; 1000]; 1000];
-    for line in read_to_string("res/day05.txt").unwrap().lines() {
+    for line in text.lines() {
         let mut split = line
             .split(" -> ")
             .map(|s| s.split(','))
@@ -60,10 +60,12 @@ mod bench {
 
     #[bench]
     fn day05_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day05.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day05_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day05.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

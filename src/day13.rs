@@ -1,12 +1,9 @@
-use std::fs::read_to_string;
-
 use regex::Regex;
 
-pub(crate) fn part1() {
+pub(crate) fn part1(text: &String) {
     let mut width = 1500;
     let mut height = 1000;
     let mut paper = vec![vec![false; width]; height];
-    let text = read_to_string("res/day13.txt").unwrap();
     let mut lines = text.lines();
     width = 0;
     height = 0;
@@ -55,11 +52,10 @@ pub(crate) fn part1() {
     );
 }
 
-pub(crate) fn part2() {
+pub(crate) fn part2(text: &String) {
     let mut width = 1500;
     let mut height = 1000;
     let mut paper = vec![vec![false; width]; height];
-    let text = read_to_string("res/day13.txt").unwrap();
     let mut lines = text.lines();
     width = 0;
     height = 0;
@@ -118,15 +114,19 @@ pub(crate) fn part2() {
 
 #[allow(soft_unstable, unused_imports)]
 mod bench {
+    use std::fs::read_to_string;
+
     use super::*;
     use test::Bencher;
 
     #[bench]
     fn day13_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day13.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day13_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day13.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }

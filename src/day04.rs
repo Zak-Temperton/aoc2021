@@ -1,7 +1,6 @@
 use std::fs::read_to_string;
 
-pub(crate) fn part1() {
-    let text = read_to_string("res/day04.txt").unwrap();
+pub(crate) fn part1(text: &String) {
     let mut lines = text.lines();
     let mut bingos = Vec::new();
     let order = lines
@@ -66,8 +65,7 @@ fn result1(mut bingos: Vec<Vec<Vec<i32>>>, order: Vec<i32>) -> i32 {
     0
 }
 
-pub(crate) fn part2() {
-    let text = read_to_string("res/day04.txt").unwrap();
+pub(crate) fn part2(text: &String) {
     let mut lines = text.lines();
     let mut bingos = Vec::new();
     let order = lines
@@ -150,10 +148,12 @@ mod bench {
 
     #[bench]
     fn day04_part1(b: &mut Bencher) {
-        b.iter(part1);
+        let text = read_to_string("res/day04.txt").unwrap();
+        b.iter(|| part1(&text));
     }
     #[bench]
     fn day04_part2(b: &mut Bencher) {
-        b.iter(part2);
+        let text = read_to_string("res/day04.txt").unwrap();
+        b.iter(|| part2(&text));
     }
 }
