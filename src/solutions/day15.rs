@@ -58,26 +58,37 @@ fn find_shortest_path(map: Vec<Vec<u64>>) {
     while let Some(location) = queue.pop() {
         let (x, y, value) = (location.x, location.y, location.value);
         if x == width && y == height {
-            break;
+            println!("part2: {}", *explored.last().unwrap().last().unwrap());
+            return;
         }
-        if x < width && map[x + 1][y] + value < explored[x + 1][y] {
-            explored[x + 1][y] = value + map[x + 1][y];
-            queue.push(Location::new(x + 1, y, explored[x + 1][y]));
+        if x < width {
+            try_push(&mut queue, x + 1, y, value, &map, &mut explored);
         }
-        if x > 0 && map[x - 1][y] + value < explored[x - 1][y] {
-            explored[x - 1][y] = value + map[x - 1][y];
-            queue.push(Location::new(x - 1, y, explored[x - 1][y]));
+        if x > 0 {
+            try_push(&mut queue, x - 1, y, value, &map, &mut explored);
         }
-        if y < height && map[x][y + 1] + value < explored[x][y + 1] {
-            explored[x][y + 1] = value + map[x][y + 1];
-            queue.push(Location::new(x, y + 1, explored[x][y + 1]));
+        if y < height {
+            try_push(&mut queue, x, y + 1, value, &map, &mut explored);
         }
-        if y > 0 && map[x][y - 1] + value < explored[x][y - 1] {
-            explored[x][y - 1] = value + map[x][y - 1];
-            queue.push(Location::new(x, y - 1, explored[x][y - 1]));
+        if y > 0 {
+            try_push(&mut queue, x, y - 1, value, &map, &mut explored);
         }
     }
-    println!("part2: {}", *explored.last().unwrap().last().unwrap());
+}
+
+fn try_push(
+    queue: &mut BinaryHeap<Location>,
+    x: usize,
+    y: usize,
+    value: u64,
+    map: &[Vec<u64>],
+    explored: &mut [Vec<u64>],
+) {
+    let new_value = value + map[x][y];
+    if new_value < explored[x][y] {
+        explored[x][y] = new_value;
+        queue.push(Location::new(x, y, new_value));
+    }
 }
 
 fn extend_map(map: &mut Vec<Vec<u64>>) {
