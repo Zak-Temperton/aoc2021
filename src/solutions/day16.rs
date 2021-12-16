@@ -1,11 +1,32 @@
-pub(crate) fn part1(text: &str) {
-    let packet = text
-        .chars()
-        .map(|c| from_hex(c).iter().copied())
-        .flatten()
-        .collect::<Vec<u8>>();
+fn from_binary(slice: &[u8]) -> usize {
+    let mut out = 0;
+    for &b in slice {
+        out <<= 1;
+        out |= b as usize;
+    }
+    out
+}
 
-    println!("part1: {}", basic_packet_translation(&packet).0);
+fn from_hex<'a>(c: char) -> &'a [u8] {
+    match c {
+        '0' => &[0, 0, 0, 0],
+        '1' => &[0, 0, 0, 1],
+        '2' => &[0, 0, 1, 0],
+        '3' => &[0, 0, 1, 1],
+        '4' => &[0, 1, 0, 0],
+        '5' => &[0, 1, 0, 1],
+        '6' => &[0, 1, 1, 0],
+        '7' => &[0, 1, 1, 1],
+        '8' => &[1, 0, 0, 0],
+        '9' => &[1, 0, 0, 1],
+        'A' => &[1, 0, 1, 0],
+        'B' => &[1, 0, 1, 1],
+        'C' => &[1, 1, 0, 0],
+        'D' => &[1, 1, 0, 1],
+        'E' => &[1, 1, 1, 0],
+        'F' => &[1, 1, 1, 1],
+        _ => &[],
+    }
 }
 
 enum LenType {
@@ -13,7 +34,15 @@ enum LenType {
     Num(usize),
 }
 
-fn basic_packet_translation(packet: &[u8]) -> (usize, usize) {
+fn get_packet_len(packet: &[u8]) -> (LenType, usize) {
+    if packet[6] == 0 {
+        (LenType::Bits(from_binary(&packet[7..22]) + 22), 22)
+    } else {
+        (LenType::Num(from_binary(&packet[7..18])), 18)
+    }
+}
+
+fn sum_versions(packet: &[u8]) -> (usize, usize) {
     let mut version_sum = from_binary(&packet[0..3]);
     let packet_type_id = from_binary(&packet[3..6]);
     if packet_type_id != 4 {
@@ -21,14 +50,14 @@ fn basic_packet_translation(packet: &[u8]) -> (usize, usize) {
         match len {
             LenType::Bits(end) => {
                 while index < end {
-                    let (sum, i) = basic_packet_translation(&packet[index..]);
+                    let (sum, i) = sum_versions(&packet[index..]);
                     index += i;
                     version_sum += sum;
                 }
             }
             LenType::Num(end) => {
                 for _ in 0..end {
-                    let (sum, i) = basic_packet_translation(&packet[index..]);
+                    let (sum, i) = sum_versions(&packet[index..]);
                     index += i;
                     version_sum += sum;
                 }
@@ -43,6 +72,16 @@ fn basic_packet_translation(packet: &[u8]) -> (usize, usize) {
         index += 5;
         (version_sum, index)
     }
+}
+
+pub(crate) fn part1(text: &str) {
+    let packet = text
+        .chars()
+        .map(|c| from_hex(c).iter().copied())
+        .flatten()
+        .collect::<Vec<u8>>();
+
+    println!("part1: {}", sum_versions(&packet).0);
 }
 
 fn get_results_from_expression(packet: &[u8]) -> (usize, Vec<usize>) {
@@ -73,7 +112,6 @@ fn evaluate_packet(packet: &[u8]) -> (usize, usize) {
         //sum
         0 => {
             let (index, res) = get_results_from_expression(packet);
-
             (index, res.iter().sum())
         }
         //product
@@ -106,73 +144,20 @@ fn evaluate_packet(packet: &[u8]) -> (usize, usize) {
         }
         //greater than
         5 => {
-            let (_, mut index) = get_packet_len(packet);
-            let res1 = evaluate_packet(&packet[index..]);
-            index += res1.0;
-            let res2 = evaluate_packet(&packet[index..]);
-            index += res2.0;
-
-            (index, if res1.1 > res2.1 { 1 } else { 0 })
+            let (index, res) = get_results_from_expression(packet);
+            (index, if res[0] > res[1] { 1 } else { 0 })
         }
         //less than
         6 => {
-            let (_, mut index) = get_packet_len(packet);
-            let res1 = evaluate_packet(&packet[index..]);
-            index += res1.0;
-            let res2 = evaluate_packet(&packet[index..]);
-            index += res2.0;
-
-            (index, if res1.1 < res2.1 { 1 } else { 0 })
+            let (index, res) = get_results_from_expression(packet);
+            (index, if res[0] < res[1] { 1 } else { 0 })
         }
         //equal to
         7 => {
-            let (_, mut index) = get_packet_len(packet);
-            let res1 = evaluate_packet(&packet[index..]);
-            index += res1.0;
-            let res2 = evaluate_packet(&packet[index..]);
-            index += res2.0;
-            (index, if res1.1 == res2.1 { 1 } else { 0 })
+            let (index, res) = get_results_from_expression(packet);
+            (index, if res[0] == res[1] { 1 } else { 0 })
         }
         _ => panic!(),
-    }
-}
-
-fn get_packet_len(packet: &[u8]) -> (LenType, usize) {
-    if packet[6] == 0 {
-        (LenType::Bits(from_binary(&packet[7..22]) + 22), 22)
-    } else {
-        (LenType::Num(from_binary(&packet[7..18])), 18)
-    }
-}
-
-fn from_binary(slice: &[u8]) -> usize {
-    let mut out = 0;
-    for &b in slice {
-        out <<= 1;
-        out |= b as usize;
-    }
-    out
-}
-
-fn from_hex<'a>(c: char) -> &'a [u8] {
-    match c {
-        '0' => &[0, 0, 0, 0],
-        '1' => &[0, 0, 0, 1],
-        '2' => &[0, 0, 1, 0],
-        '3' => &[0, 0, 1, 1],
-        '4' => &[0, 1, 0, 0],
-        '5' => &[0, 1, 0, 1],
-        '6' => &[0, 1, 1, 0],
-        '7' => &[0, 1, 1, 1],
-        '8' => &[1, 0, 0, 0],
-        '9' => &[1, 0, 0, 1],
-        'A' => &[1, 0, 1, 0],
-        'B' => &[1, 0, 1, 1],
-        'C' => &[1, 1, 0, 0],
-        'D' => &[1, 1, 0, 1],
-        'E' => &[1, 1, 1, 0],
-        'F' => &[1, 1, 1, 1],
-        _ => &[],
     }
 }
 
@@ -182,6 +167,7 @@ pub(crate) fn part2(text: &str) {
         .map(|c| from_hex(c).iter().copied())
         .flatten()
         .collect::<Vec<u8>>();
+
     println!("part2: {}", evaluate_packet(&packet).1);
 }
 
