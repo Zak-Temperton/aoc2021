@@ -20,3 +20,4 @@ My solutions to Advent of Code 2021 in Rust
 | 14 | [Extended Polymerization](https://adventofcode.com/2021/day/14)  | [day14.rs](src/solutions/day14.rs) |
 | 15 | [Chiton](https://adventofcode.com/2021/day/15)                   | [day15.rs](src/solutions/day15.rs) |
 | 16 | [Packet Decoder](https://adventofcode.com/2021/day/16)           | [day16.rs](src/solutions/day16.rs) |
+| 17 | [Trick Shot](https://adventofcode.com/2021/day/17)               | [day17.rs](src/solutions/day17.rs) |

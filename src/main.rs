@@ -116,6 +116,12 @@ fn main() {
             day16::part1(&text);
             day16::part2(&text);
         }
+        17 => {
+            println!("day17:");
+            let text = read_to_string("res/day17.txt").unwrap();
+            day17::part1(&text);
+            day17::part2(&text);
+        }
         _ => println!("Choose a valid day"),
     }
 }
