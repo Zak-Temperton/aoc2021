@@ -21,3 +21,4 @@ My solutions to Advent of Code 2021 in Rust
 | 15 | [Chiton](https://adventofcode.com/2021/day/15)                   | [day15.rs](src/solutions/day15.rs) |
 | 16 | [Packet Decoder](https://adventofcode.com/2021/day/16)           | [day16.rs](src/solutions/day16.rs) |
 | 17 | [Trick Shot](https://adventofcode.com/2021/day/17)               | [day17.rs](src/solutions/day17.rs) |
+| 18 | [Snailfish](https://adventofcode.com/2021/day/18)                | [day18.rs](src/solutions/day18.rs) |

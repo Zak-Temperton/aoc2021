@@ -1,4 +1,6 @@
 #![feature(test)]
+#![feature(extend_one)]
+
 extern crate test;
 
 mod solutions;
@@ -121,6 +123,12 @@ fn main() {
             let text = read_to_string("res/day17.txt").unwrap();
             day17::part1(&text);
             day17::part2(&text);
+        }
+        18 => {
+            println!("day18:");
+            let text = read_to_string("res/day18.txt").unwrap();
+            day18::part1(&text);
+            day18::part2(&text);
         }
         _ => println!("Choose a valid day"),
     }
