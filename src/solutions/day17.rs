@@ -48,17 +48,15 @@ fn find_posible_turn_ranges((x1, x2): (isize, isize)) -> Vec<(isize, isize)> {
 
 /// finds the maximum vy value
 fn find_vy(possible_vx: Vec<(isize, isize)>, (y1, y2): (isize, isize)) -> isize {
-    let mut max_vy = y1 - 1;
-    while max_vy >= y2 {
+    for max_vy in (y2..y1).rev() {
         let min_turns = (max_vy - 1) / 2;
         for &(min, max) in possible_vx.iter() {
             if min_turns >= min && min_turns <= max {
                 return max_vy;
             }
         }
-        max_vy -= 1;
     }
-    max_vy
+    0
 }
 
 pub(crate) fn part2(text1: &str) {
