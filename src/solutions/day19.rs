@@ -9,63 +9,64 @@ use std::{
 use regex::Regex;
 
 pub(crate) fn part1(text: &str) {
-    let mut scanners = Vec::new();
+    let mut beakons = Vec::new();
     let r = Regex::new(r"--- scanner [\d]+ ---").unwrap();
     for line in text.lines() {
         if !line.is_empty() {
             if r.is_match(line) {
-                scanners.push(Vec::new());
+                beakons.push(Vec::new());
                 continue;
             }
-            scanners
+            beakons
                 .last_mut()
                 .unwrap()
                 .push(Point3::from_str(line).unwrap());
         }
     }
-    let mut scanners = scanners
+    let mut beakons = beakons
         .drain(..)
         .map(|s| permutations_of(s))
         .collect::<Vec<_>>();
 
-    println!("{}", solve(&mut scanners).len());
+    println!("part1: {}", solve(&mut beakons).0.len());
 }
 
-fn solve(scanners: &mut Vec<Vec<Vec<Point3>>>) -> HashSet<Point3> {
-    let mut zero = scanners[0][0].iter().cloned().collect::<HashSet<Point3>>();
-    let mut unmatched = (1..scanners.len()).collect::<HashSet<usize>>();
+fn solve(beakons: &mut Vec<Vec<Vec<Point3>>>) -> (HashSet<Point3>, Vec<Point3>) {
+    let mut zero = beakons[0][0].iter().cloned().collect::<HashSet<Point3>>();
+    let mut unmatched = (1..beakons.len()).collect::<HashSet<usize>>();
+    let mut scanner = vec![Point3 { x: 0, y: 0, z: 0 }];
 
     while !unmatched.is_empty() {
         for &index in unmatched.iter() {
-            if match_and_merge(&mut zero, scanners[index].clone()) {
+            if let Some(diff) = match_and_merge(&mut zero, beakons[index].clone()) {
                 unmatched.remove(&index);
-                println!("{}", index);
+                scanner.push(diff);
                 break;
             }
         }
     }
 
-    zero
+    (zero, scanner)
 }
 
-fn permutations_of(mut scanner: Vec<Point3>) -> Vec<Vec<Point3>> {
+fn permutations_of(mut beakon: Vec<Point3>) -> Vec<Vec<Point3>> {
     let mut permutations = Vec::new();
     for _ in 0..2 {
         for _ in 0..4 {
             for _ in 0..4 {
-                permutations.push(scanner.clone());
-                scanner.iter_mut().for_each(|p| p.rot_z());
+                permutations.push(beakon.clone());
+                beakon.iter_mut().for_each(|p| p.rot_z());
             }
-            scanner.iter_mut().for_each(|p| p.rot_y());
+            beakon.iter_mut().for_each(|p| p.rot_y());
         }
-        scanner.iter_mut().for_each(|p| p.rot_x());
+        beakon.iter_mut().for_each(|p| p.rot_x());
     }
     permutations
 }
 
-fn match_and_merge(zero: &mut HashSet<Point3>, scanner: Vec<Vec<Point3>>) -> bool {
+fn match_and_merge(zero: &mut HashSet<Point3>, beakon: Vec<Vec<Point3>>) -> Option<Point3> {
     let mut differences = HashMap::with_capacity(zero.len() * zero.len());
-    for permutation in scanner {
+    for permutation in beakon {
         for p1 in zero.iter() {
             for p2 in permutation.iter() {
                 let diff = p2.diff(p1);
@@ -73,23 +74,55 @@ fn match_and_merge(zero: &mut HashSet<Point3>, scanner: Vec<Vec<Point3>>) -> boo
                 *count += 1;
                 if *count >= 12 {
                     merge(zero, permutation, diff);
-                    return true;
+                    return Some(diff);
                 }
             }
         }
         differences.clear();
     }
-    false
+    None
 }
 
-fn merge(zero: &mut HashSet<Point3>, scanner: Vec<Point3>, diff: Point3) {
-    for p in scanner {
+fn merge(zero: &mut HashSet<Point3>, beakon: Vec<Point3>, diff: Point3) {
+    for p in beakon {
         zero.insert(p - diff);
     }
 }
 
-pub(crate) fn part2(_: &str) {
-    todo!()
+pub(crate) fn part2(text: &str) {
+    let mut beakons = Vec::new();
+
+    let r = Regex::new(r"--- scanner [\d]+ ---").unwrap();
+    for line in text.lines() {
+        if !line.is_empty() {
+            if r.is_match(line) {
+                beakons.push(Vec::new());
+                continue;
+            }
+            beakons
+                .last_mut()
+                .unwrap()
+                .push(Point3::from_str(line).unwrap());
+        }
+    }
+    let mut beakons = beakons
+        .drain(..)
+        .map(|s| permutations_of(s))
+        .collect::<Vec<_>>();
+    let scanners = solve(&mut beakons).1;
+    let mut max = 0;
+    for (i, a) in scanners.iter().enumerate() {
+        for (j, b) in scanners.iter().enumerate() {
+            if i != j {
+                let dist = a.dist(b);
+                if dist > max {
+                    max = dist;
+                }
+            }
+        }
+    }
+
+    println!("part2: {}", max);
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -126,6 +159,11 @@ impl Point3 {
 
     pub fn diff(&self, rhs: &Self) -> Self {
         *self - *rhs
+    }
+
+    pub fn dist(&self, rhs: &Self) -> i32 {
+        let diff = self.diff(rhs);
+        diff.x.abs() + diff.y.abs() + diff.z.abs()
     }
 }
 
