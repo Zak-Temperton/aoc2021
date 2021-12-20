@@ -68,3 +68,21 @@ fn prepend_append(line: &str) -> Vec<bool> {
     out.append(&mut vec![false; 2]);
     out
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use std::fs::read_to_string;
+    use test::Bencher;
+
+    #[bench]
+    fn day20_part1(b: &mut Bencher) {
+        let text = read_to_string("res/day20.txt").unwrap();
+        b.iter(|| part1(&text));
+    }
+    #[bench]
+    fn day20_part2(b: &mut Bencher) {
+        let text1 = read_to_string("res/day20.txt").unwrap();
+        b.iter(|| part2(&text1));
+    }
+}
