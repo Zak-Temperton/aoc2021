@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut crabs: Vec<i32> = text.split(',').map(|s| s.parse().unwrap()).collect();
     crabs.sort_unstable();
     let median = crabs[crabs.len() / 2];
@@ -8,7 +8,7 @@ pub(crate) fn part1(text: &str) {
     );
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let crabs: Vec<isize> = text.split(',').map(|s| s.parse().unwrap()).collect();
     let min = *crabs.iter().min().unwrap();
     let max = *crabs.iter().max().unwrap();

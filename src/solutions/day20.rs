@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut lines = text.lines();
     let enhancement = lines
         .next()
@@ -40,7 +40,7 @@ pub(crate) fn part1(text: &str) {
     )
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut lines = text.lines();
     let enhancement = lines
         .next()

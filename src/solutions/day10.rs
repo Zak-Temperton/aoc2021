@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut points = 0;
     let mut expected = Vec::new();
     for line in text.lines() {
@@ -26,7 +26,7 @@ pub(crate) fn part1(text: &str) {
     println!("part1: {}", points);
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut scores = Vec::new();
     let mut expected = Vec::new();
     for line in text.lines() {

@@ -31,7 +31,7 @@ impl PartialEq for Location {
     }
 }
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let map = text
         .lines()
         .map(|l| l.bytes().map(|b| (b - b'0') as u64).collect())
@@ -39,7 +39,7 @@ pub(crate) fn part1(text: &str) {
     find_shortest_path(map);
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut map = text
         .lines()
         .map(|l| l.bytes().map(|b| (b - b'0') as u64).collect())

@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut trumpetfish = VecDeque::from([0; 9]);
     text.split(',')
         .map(|s| s.parse::<usize>().unwrap())
@@ -13,7 +13,7 @@ pub(crate) fn part1(text: &str) {
     println!("part1: {}", trumpetfish.iter().sum::<usize>());
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut trumpetfish = VecDeque::from([0; 9]);
     text.split(',')
         .map(|s| s.parse::<usize>().unwrap())

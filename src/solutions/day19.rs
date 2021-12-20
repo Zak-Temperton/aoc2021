@@ -8,7 +8,7 @@ use std::{
 
 use regex::Regex;
 
-pub(crate) fn part1_and_part2(text: &str) {
+pub fn part1_and_part2(text: &str) {
     let mut beakons = Vec::new();
 
     let r = Regex::new(r"--- scanner [\d]+ ---").unwrap();

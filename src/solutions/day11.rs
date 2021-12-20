@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut octopuses: Vec<Vec<u8>> = text
         .lines()
         .map(|l| l.bytes().map(|b| b - b'0').collect())
@@ -15,7 +15,7 @@ pub(crate) fn part1(text: &str) {
     println!("part1: {}", flashes);
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut octopuses: Vec<Vec<u8>> = text
         .lines()
         .map(|l| l.bytes().map(|b| b - b'0').collect())

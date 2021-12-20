@@ -1,6 +1,6 @@
 use regex::Regex;
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut width = 1500;
     let mut height = 1000;
     let mut paper = vec![vec![false; width]; height];
@@ -52,7 +52,7 @@ pub(crate) fn part1(text: &str) {
     );
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut width = 1500;
     let mut height = 1000;
     let mut paper = vec![vec![false; width]; height];

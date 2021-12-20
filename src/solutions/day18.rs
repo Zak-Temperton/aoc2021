@@ -1,7 +1,7 @@
 //based on https://github.com/paolostyle/advent-of-code-2021/blob/533a5b7fc96786de0e098bf156ee0c9291fb389a/src/bin/day18.rs
 use regex::{Captures, Regex};
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let snailfish = text.lines();
     let sum = snailfish
         .map(|s| s.to_string())
@@ -137,7 +137,7 @@ fn magnitude(mut num: String) -> u32 {
     num.parse().unwrap()
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let lines = text.lines();
     let mut max = 0;
     for (i, num1) in lines.clone().enumerate() {

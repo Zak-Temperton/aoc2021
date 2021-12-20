@@ -74,7 +74,7 @@ fn sum_versions(packet: &[u8]) -> (usize, usize) {
     }
 }
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let packet = text
         .chars()
         .map(|c| from_hex(c).iter().copied())
@@ -161,7 +161,7 @@ fn evaluate_packet(packet: &[u8]) -> (usize, usize) {
     }
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let packet = text
         .chars()
         .map(|c| from_hex(c).iter().copied())

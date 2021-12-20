@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut map = vec![vec![0; 1000]; 1000];
     for line in text.lines() {
         let mut split = line
@@ -26,7 +26,7 @@ pub(crate) fn part1(text: &str) {
     );
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut map = vec![vec![0; 1000]; 1000];
     for line in text.lines() {
         let mut split = line

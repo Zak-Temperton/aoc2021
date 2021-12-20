@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let map: Vec<Vec<u8>> = text
         .lines()
         .map(|line| line.bytes().map(|b| b - b'0').collect())
@@ -18,7 +18,7 @@ pub(crate) fn part1(text: &str) {
     println!("part1: {}", count);
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut map: Vec<Vec<bool>> = text
         .lines()
         .map(|line| line.bytes().map(|b| b != b'9').collect()) // if basin return true else false

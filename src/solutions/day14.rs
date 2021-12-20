@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     solve(10, text);
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     solve(40, text);
 }
 

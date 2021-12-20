@@ -1,6 +1,6 @@
 use regex::Regex;
 
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     // target area: x=137..171, y=-98..-73
     let r = Regex::new(r"target area: x=(?:([\d]+))..(?:([\d]+)), y=-(?:([\d]+))..-(?:([\d]+))")
         .unwrap();
@@ -59,7 +59,7 @@ fn find_vy(possible_vx: Vec<(isize, isize)>, (y1, y2): (isize, isize)) -> isize 
     0
 }
 
-pub(crate) fn part2(text1: &str) {
+pub fn part2(text1: &str) {
     let r = Regex::new(r"target area: x=(?:([\d]+))..(?:([\d]+)), y=(?:([\-\d]+))..(?:([\-\d]+))")
         .unwrap();
     let captures = r.captures(text1).unwrap();

@@ -1,4 +1,4 @@
-pub(crate) fn part1(text: &str) {
+pub fn part1(text: &str) {
     let mut count = 0;
     for line in text.lines() {
         count += line
@@ -14,7 +14,7 @@ pub(crate) fn part1(text: &str) {
     println!("part1: {}", count);
 }
 
-pub(crate) fn part2(text: &str) {
+pub fn part2(text: &str) {
     let mut sum = 0;
     for line in text.lines() {
         let mut wires = [0; 7];
