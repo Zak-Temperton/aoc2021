@@ -133,8 +133,7 @@ fn main() {
         19 => {
             println!("day19:");
             let text = read_to_string("res/day19.txt").unwrap();
-            day19::part1(&text);
-            day19::part2(&text);
+            day19::part1_and_part2(&text);
         }
         _ => println!("Choose a valid day"),
     }

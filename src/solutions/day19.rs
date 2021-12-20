@@ -8,8 +8,9 @@ use std::{
 
 use regex::Regex;
 
-pub(crate) fn part1(text: &str) {
+pub(crate) fn part1_and_part2(text: &str) {
     let mut beakons = Vec::new();
+
     let r = Regex::new(r"--- scanner [\d]+ ---").unwrap();
     for line in text.lines() {
         if !line.is_empty() {
@@ -27,8 +28,22 @@ pub(crate) fn part1(text: &str) {
         .drain(..)
         .map(|s| permutations_of(s))
         .collect::<Vec<_>>();
+    let (zero, scanners) = solve(&mut beakons);
+    let mut max = 0;
+    for (i, a) in scanners.iter().enumerate() {
+        for (j, b) in scanners.iter().enumerate() {
+            if i != j {
+                let dist = a.dist(b);
+                if dist > max {
+                    max = dist;
+                }
+            }
+        }
+    }
 
-    println!("part1: {}", solve(&mut beakons).0.len());
+    println!("part1: {}", zero.len());
+
+    println!("part2: {}", max);
 }
 
 fn solve(beakons: &mut Vec<Vec<Vec<Point3>>>) -> (HashSet<Point3>, Vec<Point3>) {
@@ -87,42 +102,6 @@ fn merge(zero: &mut HashSet<Point3>, beakon: Vec<Point3>, diff: Point3) {
     for p in beakon {
         zero.insert(p - diff);
     }
-}
-
-pub(crate) fn part2(text: &str) {
-    let mut beakons = Vec::new();
-
-    let r = Regex::new(r"--- scanner [\d]+ ---").unwrap();
-    for line in text.lines() {
-        if !line.is_empty() {
-            if r.is_match(line) {
-                beakons.push(Vec::new());
-                continue;
-            }
-            beakons
-                .last_mut()
-                .unwrap()
-                .push(Point3::from_str(line).unwrap());
-        }
-    }
-    let mut beakons = beakons
-        .drain(..)
-        .map(|s| permutations_of(s))
-        .collect::<Vec<_>>();
-    let scanners = solve(&mut beakons).1;
-    let mut max = 0;
-    for (i, a) in scanners.iter().enumerate() {
-        for (j, b) in scanners.iter().enumerate() {
-            if i != j {
-                let dist = a.dist(b);
-                if dist > max {
-                    max = dist;
-                }
-            }
-        }
-    }
-
-    println!("part2: {}", max);
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
