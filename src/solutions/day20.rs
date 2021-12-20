@@ -53,20 +53,19 @@ fn create_image(text: &str) -> (Vec<Vec<bool>>, Vec<bool>) {
     let mut lines = text.lines();
     let enhancement = as_bools(lines.next().unwrap());
     lines.next();
-    let first = prepend_append(lines.next().unwrap());
-    let width = first.len();
-    let mut image = vec![vec![false; width]; 2];
-    image.push(first);
-    image.append(&mut lines.map(prepend_append).collect());
-    image.append(&mut vec![vec![false; width]; 2]);
-    (image, enhancement)
+    let centre = lines.map(with_border).collect::<Vec<_>>();
+    let width = centre[0].len();
+    let top_bottom = vec![vec![false; width]; 2];
+
+    (
+        [top_bottom.clone(), centre, top_bottom].concat(),
+        enhancement,
+    )
 }
 
-fn prepend_append(line: &str) -> Vec<bool> {
-    let mut out = vec![false; 2];
-    out.append(&mut as_bools(line));
-    out.append(&mut vec![false; 2]);
-    out
+fn with_border(line: &str) -> Vec<bool> {
+    const BORDER: [bool; 2] = [false; 2];
+    [BORDER.to_vec(), as_bools(line), BORDER.to_vec()].concat()
 }
 
 #[allow(soft_unstable, unused_imports)]
