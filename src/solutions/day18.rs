@@ -152,3 +152,21 @@ pub(crate) fn part2(text: &str) {
     }
     println!("{}", max);
 }
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use std::fs::read_to_string;
+    use test::Bencher;
+
+    #[bench]
+    fn day18_part1(b: &mut Bencher) {
+        let text = read_to_string("res/day18.txt").unwrap();
+        b.iter(|| part1(&text));
+    }
+    #[bench]
+    #[ignore = "too slow"]
+    fn day18_part2(b: &mut Bencher) {
+        let text1 = read_to_string("res/day17.txt").unwrap();
+        b.iter(|| part2(&text1));
+    }
+}

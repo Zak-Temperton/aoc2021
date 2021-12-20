@@ -185,3 +185,16 @@ impl Hash for Point3 {
         state.write_i32(self.x ^ self.y ^ self.z);
     }
 }
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use std::fs::read_to_string;
+    use test::Bencher;
+
+    #[bench]
+    fn day19_part1_and_part2(b: &mut Bencher) {
+        let text = read_to_string("res/day19.txt").unwrap();
+        b.iter(|| part1_and_part2(&text));
+    }
+}
