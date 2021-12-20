@@ -23,4 +23,4 @@ My solutions to Advent of Code 2021 in Rust
 | 17 | [Trick Shot](https://adventofcode.com/2021/day/17)               | [day17.rs](src/solutions/day17.rs) |
 | 18 | [Snailfish](https://adventofcode.com/2021/day/18)                | [day18.rs](src/solutions/day18.rs) |
 | 19 | [Beacon Scanner](https://adventofcode.com/2021/day/19)           | [day19.rs](src/solutions/day19.rs) |
-| 20 | [Trench Map](https://adventofcode.com/2021/day/20)           | [day20.rs](src/solutions/day20.rs) |
+| 20 | [Trench Map](https://adventofcode.com/2021/day/20)               | [day20.rs](src/solutions/day20.rs) |
