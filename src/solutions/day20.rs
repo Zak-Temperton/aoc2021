@@ -1,3 +1,5 @@
+const BORDER_WIDTH: usize = 2;
+
 pub fn part1(text: &str) {
     println!(
         "part1: {}",
@@ -37,7 +39,7 @@ fn enhance(text: &str, turns: usize) -> Vec<Vec<bool>> {
                         }
                     }
                 }
-                new_image[y + 2][x + 2] = enhancement[index];
+                new_image[y + BORDER_WIDTH][x + BORDER_WIDTH] = enhancement[index];
             }
         }
         image = new_image;
@@ -54,8 +56,7 @@ fn create_image(text: &str) -> (Vec<Vec<bool>>, Vec<bool>) {
     let enhancement = as_bools(lines.next().unwrap());
     lines.next();
     let centre = lines.map(with_border).collect::<Vec<_>>();
-    let width = centre[0].len();
-    let top_bottom = vec![vec![false; width]; 2];
+    let top_bottom = vec![vec![false; centre[0].len()]; BORDER_WIDTH];
 
     (
         [top_bottom.clone(), centre, top_bottom].concat(),
@@ -64,7 +65,7 @@ fn create_image(text: &str) -> (Vec<Vec<bool>>, Vec<bool>) {
 }
 
 fn with_border(line: &str) -> Vec<bool> {
-    const BORDER: [bool; 2] = [false; 2];
+    const BORDER: [bool; BORDER_WIDTH] = [false; BORDER_WIDTH];
     [BORDER.to_vec(), as_bools(line), BORDER.to_vec()].concat()
 }
 
