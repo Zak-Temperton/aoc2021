@@ -110,27 +110,21 @@ struct Point3 {
 
 impl Point3 {
     pub fn rot_x(&mut self) {
-        *self = Self {
-            x: self.x,
-            y: -self.z,
-            z: self.y,
-        }
+        let tmp = self.y;
+        self.y = -self.z;
+        self.z = tmp;
     }
 
     pub fn rot_y(&mut self) {
-        *self = Self {
-            x: -self.z,
-            y: self.y,
-            z: self.x,
-        }
+        let tmp = self.x;
+        self.x = -self.z;
+        self.z = tmp;
     }
 
     pub fn rot_z(&mut self) {
-        *self = Self {
-            x: self.y,
-            y: -self.x,
-            z: self.z,
-        }
+        let tmp = self.y;
+        self.y = -self.x;
+        self.x = tmp;
     }
 
     pub fn diff(&self, rhs: &Self) -> Self {
