@@ -26,11 +26,11 @@ fn find_posible_turn_ranges((x1, x2): (isize, isize)) -> Vec<(isize, isize)> {
         for (i, dx) in (0..=vx).rev().enumerate() {
             if x >= x1 {
                 if x > x2 {
-                    if min_turn.is_none() {
-                        return out;
-                    } else {
-                        out.push((min_turn.unwrap(), i as isize));
+                    if let Some(min) = min_turn {
+                        out.push((min, i as isize));
                         break;
+                    } else {
+                        return out;
                     }
                 } else if dx == 0 {
                     out.push((min_turn.unwrap(), isize::MAX));

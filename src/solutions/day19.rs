@@ -24,10 +24,7 @@ pub(crate) fn part1_and_part2(text: &str) {
                 .push(Point3::from_str(line).unwrap());
         }
     }
-    let mut beakons = beakons
-        .drain(..)
-        .map(|s| permutations_of(s))
-        .collect::<Vec<_>>();
+    let mut beakons = beakons.drain(..).map(permutations_of).collect::<Vec<_>>();
     let (zero, scanners) = solve(&mut beakons);
     let mut max = 0;
     for (i, a) in scanners.iter().enumerate() {
@@ -179,7 +176,7 @@ impl FromStr for Point3 {
         Ok(Point3 { x, y, z })
     }
 }
-
+#[allow(clippy::derive_hash_xor_eq)]
 impl Hash for Point3 {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         state.write_i32(self.x ^ self.y ^ self.z);

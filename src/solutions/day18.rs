@@ -5,12 +5,12 @@ pub(crate) fn part1(text: &str) {
     let snailfish = text.lines();
     let sum = snailfish
         .map(|s| s.to_string())
-        .reduce(|sum, fish| add_snailfish_num(sum, fish))
+        .reduce(add_snailfish_num)
         .unwrap();
     println!("{}", magnitude(sum));
 }
 
-fn add_snailfish_num<'a>(num1: String, num2: String) -> String {
+fn add_snailfish_num(num1: String, num2: String) -> String {
     let mut snailfish = format!("[{},{}]", num1, num2);
     while reduce(&mut snailfish) {}
     snailfish
