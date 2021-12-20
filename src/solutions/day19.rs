@@ -24,8 +24,8 @@ pub fn part1_and_part2(text: &str) {
                 .push(Point3::from_str(line).unwrap());
         }
     }
-    let mut beakons = beakons.drain(..).map(permutations_of).collect::<Vec<_>>();
-    let (zero, scanners) = solve(&mut beakons);
+    let beakons = beakons.drain(..).map(permutations_of).collect::<Vec<_>>();
+    let (zero, scanners) = solve(beakons);
     let mut max = 0;
     for (i, a) in scanners.iter().enumerate() {
         for (j, b) in scanners.iter().enumerate() {
@@ -43,14 +43,14 @@ pub fn part1_and_part2(text: &str) {
     println!("part2: {}", max);
 }
 
-fn solve(beakons: &mut Vec<Vec<Vec<Point3>>>) -> (HashSet<Point3>, Vec<Point3>) {
+fn solve(beakons: Vec<Vec<Vec<Point3>>>) -> (HashSet<Point3>, Vec<Point3>) {
     let mut zero = beakons[0][0].iter().cloned().collect::<HashSet<Point3>>();
     let mut unmatched = (1..beakons.len()).collect::<HashSet<usize>>();
     let mut scanner = vec![Point3 { x: 0, y: 0, z: 0 }];
 
     while !unmatched.is_empty() {
         for &index in unmatched.iter() {
-            if let Some(diff) = match_and_merge(&mut zero, beakons[index].clone()) {
+            if let Some(diff) = match_and_merge(&mut zero, &beakons[index]) {
                 unmatched.remove(&index);
                 scanner.push(diff);
                 break;
@@ -76,7 +76,7 @@ fn permutations_of(mut beakon: Vec<Point3>) -> Vec<Vec<Point3>> {
     permutations
 }
 
-fn match_and_merge(zero: &mut HashSet<Point3>, beakon: Vec<Vec<Point3>>) -> Option<Point3> {
+fn match_and_merge(zero: &mut HashSet<Point3>, beakon: &Vec<Vec<Point3>>) -> Option<Point3> {
     let mut differences = HashMap::with_capacity(zero.len() * zero.len());
     for permutation in beakon {
         for p1 in zero.iter() {
@@ -95,8 +95,8 @@ fn match_and_merge(zero: &mut HashSet<Point3>, beakon: Vec<Vec<Point3>>) -> Opti
     None
 }
 
-fn merge(zero: &mut HashSet<Point3>, beakon: Vec<Point3>, diff: Point3) {
-    for p in beakon {
+fn merge(zero: &mut HashSet<Point3>, beakon: &Vec<Point3>, diff: Point3) {
+    for &p in beakon {
         zero.insert(p - diff);
     }
 }
@@ -176,6 +176,7 @@ impl FromStr for Point3 {
         Ok(Point3 { x, y, z })
     }
 }
+
 #[allow(clippy::derive_hash_xor_eq)]
 impl Hash for Point3 {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
