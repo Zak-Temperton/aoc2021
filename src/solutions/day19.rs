@@ -76,7 +76,7 @@ fn permutations_of(mut beakon: Vec<Point3>) -> Vec<Vec<Point3>> {
     permutations
 }
 
-fn match_and_merge(zero: &mut HashSet<Point3>, beakon: &Vec<Vec<Point3>>) -> Option<Point3> {
+fn match_and_merge(zero: &mut HashSet<Point3>, beakon: &[Vec<Point3>]) -> Option<Point3> {
     let mut differences = HashMap::with_capacity(zero.len() * zero.len());
     for permutation in beakon {
         for p1 in zero.iter() {
@@ -95,7 +95,7 @@ fn match_and_merge(zero: &mut HashSet<Point3>, beakon: &Vec<Vec<Point3>>) -> Opt
     None
 }
 
-fn merge(zero: &mut HashSet<Point3>, beakon: &Vec<Point3>, diff: Point3) {
+fn merge(zero: &mut HashSet<Point3>, beakon: &[Point3], diff: Point3) {
     for &p in beakon {
         zero.insert(p - diff);
     }
