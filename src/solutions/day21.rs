@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 pub fn part1(text: &str) {
     let mut lines = text.lines();
     let mut player1 = (lines.next().unwrap()[28..].parse::<usize>().unwrap(), 0);
@@ -39,44 +37,16 @@ fn roll_dice(dice: &mut usize) -> usize {
     result
 }
 
-type GameState = HashMap<(usize, usize, usize, usize), (usize, usize)>;
-
 pub fn part2(text: &str) {
     let mut lines = text.lines();
     let pos1 = lines.next().unwrap()[28..].parse::<usize>().unwrap();
     let pos2 = lines.next().unwrap()[28..].parse::<usize>().unwrap();
-    let (w1, w2) = quantum_game(&mut GameState::new(), 0, 0, pos1, pos2);
+    let mut game_state = vec![vec![vec![vec![None; 21]; 21]; 10]; 10];
+    let (w1, w2) = quantum_game(&mut game_state, 0, 0, pos1, pos2);
     println!("part2: {}", w1.max(w2));
 }
 
 const DICE: [usize; 27] = dice();
-
-fn quantum_game(
-    game_state: &mut GameState,
-    p1: usize,
-    p2: usize,
-    pos1: usize,
-    pos2: usize,
-) -> (usize, usize) {
-    if p1 >= 21 {
-        (1, 0)
-    } else if p2 >= 21 {
-        (0, 1)
-    } else if let Some(&wins) = game_state.get(&(p1, p2, pos1, pos2)) {
-        wins
-    } else {
-        let mut wins = (0, 0);
-        for d in DICE {
-            let pos1 = ((pos1 + d - 1) % 10) + 1;
-            let (w1, w2) = quantum_game(game_state, p2, p1 + pos1, pos2, pos1);
-            wins.0 += w2;
-            wins.1 += w1;
-        }
-
-        game_state.insert((p1, p2, pos1, pos2), wins);
-        wins
-    }
-}
 
 ///Collection of the sums of dice permutations
 const fn dice() -> [usize; 27] {
@@ -97,6 +67,34 @@ const fn dice() -> [usize; 27] {
         d1 += 1;
     }
     dice
+}
+
+type GameState = Vec<Vec<Vec<Vec<Option<(usize, usize)>>>>>;
+
+fn quantum_game(
+    game_state: &mut GameState,
+    p1: usize,
+    p2: usize,
+    pos1: usize,
+    pos2: usize,
+) -> (usize, usize) {
+    if p1 >= 21 {
+        (1, 0)
+    } else if p2 >= 21 {
+        (0, 1)
+    } else if let Some(wins) = game_state[pos1 - 1][pos2 - 1][p1][p2] {
+        wins
+    } else {
+        let mut wins = (0, 0);
+        for d in DICE {
+            let pos1 = ((pos1 + d - 1) % 10) + 1;
+            let (w1, w2) = quantum_game(game_state, p2, p1 + pos1, pos2, pos1);
+            wins.0 += w2;
+            wins.1 += w1;
+        }
+        game_state[pos1 - 1][pos2 - 1][p1][p2] = Some(wins);
+        wins
+    }
 }
 
 #[allow(soft_unstable, unused_imports)]
