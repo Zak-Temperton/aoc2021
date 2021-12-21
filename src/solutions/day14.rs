@@ -16,15 +16,7 @@ fn solve(loops: usize, text: &str) {
         for c in template {
             counts[(c - b'A') as usize] += 1;
         }
-        let (max, min) = counts.iter().fold((u64::MIN, u64::MAX), |(max, min), &c| {
-            if c != 0 && c < min {
-                (max, c)
-            } else if c > max {
-                (c, min)
-            } else {
-                (max, min)
-            }
-        });
+        let (max, min) = min_max(counts);
         println!("part2: {}", max - min);
         return;
     }
@@ -73,7 +65,12 @@ fn solve(loops: usize, text: &str) {
         }
     }
     counts[(*template.last().unwrap() - b'A') as usize] += 1;
-    let (max, min) = counts.iter().fold((u64::MIN, u64::MAX), |(max, min), &c| {
+    let (max, min) = min_max(counts);
+    println!("part2: {}", max - min)
+}
+
+fn min_max(counts: [u64; 26]) -> (u64, u64) {
+    counts.iter().fold((u64::MIN, u64::MAX), |(max, min), &c| {
         if c != 0 && c < min {
             (max, c)
         } else if c > max {
@@ -81,8 +78,7 @@ fn solve(loops: usize, text: &str) {
         } else {
             (max, min)
         }
-    });
-    println!("part2: {}", max - min)
+    })
 }
 
 #[allow(soft_unstable, unused_imports)]
