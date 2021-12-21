@@ -1,20 +1,25 @@
 use regex::Regex;
 
 pub fn part1(text: &str) {
-    // target area: x=137..171, y=-98..-73
+    let (x_range, y_range) = get_ranges(text);
+    let possible_vx = find_posible_turn_ranges(x_range);
+    println!("{}", (0..=find_vy(possible_vx, y_range)).sum::<isize>());
+}
+
+fn get_ranges(text: &str) -> ((isize, isize), (isize, isize)) {
     let r = Regex::new(r"target area: x=(?:([\d]+))..(?:([\d]+)), y=-(?:([\d]+))..-(?:([\d]+))")
         .unwrap();
     let captures = r.captures(text).unwrap();
-    let x_range: (isize, isize) = (
-        captures.get(1).unwrap().as_str().parse().unwrap(),
-        captures.get(2).unwrap().as_str().parse().unwrap(),
-    );
-    let y_range: (isize, isize) = (
-        captures.get(3).unwrap().as_str().parse().unwrap(),
-        captures.get(4).unwrap().as_str().parse().unwrap(),
-    );
-    let possible_vx = find_posible_turn_ranges(x_range);
-    println!("{}", (0..=find_vy(possible_vx, y_range)).sum::<isize>());
+    (
+        (
+            captures.get(1).unwrap().as_str().parse().unwrap(),
+            captures.get(2).unwrap().as_str().parse().unwrap(),
+        ),
+        (
+            captures.get(3).unwrap().as_str().parse().unwrap(),
+            captures.get(4).unwrap().as_str().parse().unwrap(),
+        ),
+    )
 }
 
 ///finds possible the range of turns for a valid vx
@@ -59,18 +64,9 @@ fn find_vy(possible_vx: Vec<(isize, isize)>, (y1, y2): (isize, isize)) -> isize 
     0
 }
 
-pub fn part2(text1: &str) {
-    let r = Regex::new(r"target area: x=(?:([\d]+))..(?:([\d]+)), y=(?:([\-\d]+))..(?:([\-\d]+))")
-        .unwrap();
-    let captures = r.captures(text1).unwrap();
-    let x_range: (isize, isize) = (
-        captures.get(1).unwrap().as_str().parse().unwrap(),
-        captures.get(2).unwrap().as_str().parse().unwrap(),
-    );
-    let y_range: (isize, isize) = (
-        captures.get(3).unwrap().as_str().parse().unwrap(),
-        captures.get(4).unwrap().as_str().parse().unwrap(),
-    );
+pub fn part2(text: &str) {
+    let (x_range, y_range) = get_ranges(text);
+
     println!("{}", valid_initial_velocities(x_range, y_range));
 }
 
