@@ -10,8 +10,7 @@ pub fn part1(text: &str) {
 
 pub fn part2(text: &str) {
     let crabs: Vec<isize> = text.split(',').map(|s| s.parse().unwrap()).collect();
-    let min = *crabs.iter().min().unwrap();
-    let max = *crabs.iter().max().unwrap();
+    let (max, min) = max_min(&crabs);
 
     let mut min_cost = isize::MAX;
     for i in min..=max {
@@ -25,6 +24,20 @@ pub fn part2(text: &str) {
         }
     }
     println!("part2: {}", min_cost);
+}
+
+fn max_min(crabs: &[isize]) -> (isize, isize) {
+    crabs
+        .iter()
+        .fold((isize::MIN, isize::MAX), |(max, min), &c| {
+            if c != 0 && c < min {
+                (max, c)
+            } else if c > max {
+                (c, min)
+            } else {
+                (max, min)
+            }
+        })
 }
 
 #[allow(soft_unstable, unused_imports)]

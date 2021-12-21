@@ -1,6 +1,12 @@
 use std::collections::{HashMap, HashSet};
 
 pub fn part1(text: &str) {
+    let caves = create_caves(text);
+    let mut visited: HashSet<&str> = HashSet::new();
+    println!("part1: {}", traverse_caves1("start", &caves, &mut visited));
+}
+
+fn create_caves(text: &str) -> HashMap<&str, Vec<&str>> {
     let mut caves = HashMap::new();
     for line in text.lines() {
         let mut paths = line.split('-');
@@ -9,8 +15,7 @@ pub fn part1(text: &str) {
         caves.entry(path1).or_insert_with(Vec::new).push(path2);
         caves.entry(path2).or_insert_with(Vec::new).push(path1);
     }
-    let mut visited: HashSet<&str> = HashSet::new();
-    println!("part1: {}", traverse_caves1("start", &caves, &mut visited));
+    caves
 }
 
 fn traverse_caves1<'a>(
@@ -35,14 +40,7 @@ fn traverse_caves1<'a>(
 }
 
 pub fn part2(text: &str) {
-    let mut caves = HashMap::new();
-    for line in text.lines() {
-        let mut paths = line.split('-');
-        let path1 = paths.next().unwrap();
-        let path2 = paths.next().unwrap();
-        caves.entry(path1).or_insert_with(Vec::new).push(path2);
-        caves.entry(path2).or_insert_with(Vec::new).push(path1);
-    }
+    let caves = create_caves(text);
     let mut visited = HashSet::new();
     visited.insert("start");
     println!("part2: {}", traverse_caves2("start", &caves, &mut visited));
