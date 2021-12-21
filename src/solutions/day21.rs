@@ -78,6 +78,7 @@ fn quantum_game(
     }
 }
 
+///Collection of the sums of dice permutations
 const fn dice() -> [usize; 27] {
     let mut dice = [0; 27];
     let mut i = 0;
