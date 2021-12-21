@@ -1,5 +1,4 @@
 #![feature(test)]
-#![feature(extend_one)]
 
 extern crate test;
 
