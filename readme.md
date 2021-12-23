@@ -24,3 +24,5 @@ My solutions to Advent of Code 2021 in Rust
 | 18 | [Snailfish](https://adventofcode.com/2021/day/18)                | [day18.rs](src/solutions/day18.rs) |
 | 19 | [Beacon Scanner](https://adventofcode.com/2021/day/19)           | [day19.rs](src/solutions/day19.rs) |
 | 20 | [Trench Map](https://adventofcode.com/2021/day/20)               | [day20.rs](src/solutions/day20.rs) |
+| 21 | [Dirac Dice](https://adventofcode.com/2021/day/21)               | [day21.rs](src/solutions/day21.rs) |
+| 22 | [Reactor Reboot](https://adventofcode.com/2021/day/22)           | [day22.rs](src/solutions/day22.rs) |
