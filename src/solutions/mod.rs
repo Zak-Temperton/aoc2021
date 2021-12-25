@@ -153,3 +153,10 @@ pub(crate) fn day22() {
     day22::part1(&text);
     day22::part2(&text);
 }
+mod day24;
+pub(crate) fn day24() {
+    println!("day24:");
+    let text = read_to_string("res/day24.txt").unwrap();
+    day24::part1(&text);
+    day24::part2(&text);
+}
