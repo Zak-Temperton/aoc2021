@@ -22,62 +22,54 @@ pub(crate) fn part1(text: &str) {
     let height = sea_floor.len();
     let width = sea_floor[0].len();
     let mut count = 0;
-
-    println!(
-        "part1: {}",
-        loop {
-            count += 1;
-
-            let mut moved = false;
-            for row in sea_floor.iter_mut() {
-                for x in 0..width {
-                    match row[x] {
-                        Cucumber::Right(c) if c != count => {
-                            if x < width - 1 && row[x + 1] == Cucumber::None {
-                                moved = true;
-                                row[x + 1] = Cucumber::Right(count);
-                                row[x] = Cucumber::None;
-                            } else if x == width - 1
-                                && row[0] == Cucumber::None
-                                && row[1] != Cucumber::Right(count)
-                            {
-                                moved = true;
-                                row[0] = Cucumber::Right(count);
-                                row[x] = Cucumber::None;
-                            }
+    let mut moved = false;
+    while !moved {
+        count += 1;
+        for row in sea_floor.iter_mut() {
+            for x in 0..width {
+                match row[x] {
+                    Cucumber::Right(c) if c != count => {
+                        if x < width - 1 && row[x + 1] == Cucumber::None {
+                            moved = true;
+                            row[x + 1] = Cucumber::Right(count);
+                            row[x] = Cucumber::None;
+                        } else if x == width - 1
+                            && row[0] == Cucumber::None
+                            && row[1] != Cucumber::Right(count)
+                        {
+                            moved = true;
+                            row[0] = Cucumber::Right(count);
+                            row[x] = Cucumber::None;
                         }
-                        _ => {}
                     }
+                    _ => {}
                 }
-            }
-
-            for y in 0..height {
-                for x in 0..width {
-                    match sea_floor[y][x] {
-                        Cucumber::Down(c) if c != count => {
-                            if y < height - 1 && sea_floor[y + 1][x] == Cucumber::None {
-                                moved = true;
-                                sea_floor[y + 1][x] = Cucumber::Down(count);
-                                sea_floor[y][x] = Cucumber::None;
-                            } else if y == height - 1
-                                && sea_floor[0][x] == Cucumber::None
-                                && sea_floor[1][x] != Cucumber::Down(count)
-                            {
-                                moved = true;
-                                sea_floor[0][x] = Cucumber::Down(count);
-                                sea_floor[y][x] = Cucumber::None;
-                            }
-                        }
-                        _ => {}
-                    }
-                }
-            }
-
-            if !moved {
-                break count;
             }
         }
-    );
+
+        for y in 0..height {
+            for x in 0..width {
+                match sea_floor[y][x] {
+                    Cucumber::Down(c) if c != count => {
+                        if y < height - 1 && sea_floor[y + 1][x] == Cucumber::None {
+                            moved = true;
+                            sea_floor[y + 1][x] = Cucumber::Down(count);
+                            sea_floor[y][x] = Cucumber::None;
+                        } else if y == height - 1
+                            && sea_floor[0][x] == Cucumber::None
+                            && sea_floor[1][x] != Cucumber::Down(count)
+                        {
+                            moved = true;
+                            sea_floor[0][x] = Cucumber::Down(count);
+                            sea_floor[y][x] = Cucumber::None;
+                        }
+                    }
+                    _ => {}
+                }
+            }
+        }
+    }
+    println!("part1: {}", count);
 }
 
 pub(crate) fn part2(_: &str) {}
