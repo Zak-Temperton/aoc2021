@@ -2,6 +2,22 @@ use std::collections::HashMap;
 
 const NUM_LEN: usize = 14;
 const SECTION_LEN: usize = 18;
+const POW_10: [i64; 14] = [
+    10_i64.pow(0),
+    10_i64.pow(1),
+    10_i64.pow(2),
+    10_i64.pow(3),
+    10_i64.pow(4),
+    10_i64.pow(5),
+    10_i64.pow(6),
+    10_i64.pow(7),
+    10_i64.pow(8),
+    10_i64.pow(9),
+    10_i64.pow(10),
+    10_i64.pow(11),
+    10_i64.pow(12),
+    10_i64.pow(13),
+];
 
 pub fn part1(text: &str) {
     let input = find_valid_modelnum(
@@ -152,7 +168,7 @@ fn find_valid_modelnum(
         } else if let Some(best) =
             find_valid_modelnum(cache, instructions, index + 1, data.z, range)
         {
-            let b = best + w * 10_i64.pow((NUM_LEN - 1 - index) as u32);
+            let b = best + w * POW_10[NUM_LEN - 1 - index];
             cache[index].insert(data.z, Some(b));
             return Some(b);
         }
