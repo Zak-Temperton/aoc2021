@@ -6,9 +6,10 @@ pub fn part1(text: &str) {
 
     println!(
         "part1: {}",
-        paper[..height]
+        paper
             .iter()
-            .flat_map(|l| l[..width].iter())
+            .take(height)
+            .flat_map(|l| l.iter().take(width))
             .fold(0, |a, &p| if p { a + 1 } else { a })
     );
 }
