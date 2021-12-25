@@ -1,17 +1,8 @@
-use regex::Regex;
-
 pub fn part1(text: &str) {
     let mut paper = vec![vec![false; 1500]; 1000];
     let mut lines = text.lines();
     let (mut width, mut height) = init_paper(&mut lines, &mut paper);
-    let r = Regex::new(r"fold along (?:(x|y))=(?:([\d]+))").unwrap();
-    fold(
-        &r,
-        lines.next().unwrap(),
-        &mut paper,
-        &mut width,
-        &mut height,
-    );
+    fold(lines.next().unwrap(), &mut paper, &mut width, &mut height);
 
     println!(
         "part1: {}",
@@ -26,9 +17,8 @@ pub fn part2(text: &str) {
     let mut paper = vec![vec![false; 1500]; 1000];
     let mut lines = text.lines();
     let (mut width, mut height) = init_paper(&mut lines, &mut paper);
-    let r = Regex::new(r"fold along (?:(x|y))=(?:([\d]+))").unwrap();
     for instruction in lines {
-        fold(&r, instruction, &mut paper, &mut width, &mut height);
+        fold(instruction, &mut paper, &mut width, &mut height);
     }
     let out = paper
         .iter()
@@ -68,15 +58,15 @@ fn init_paper(lines: &mut std::str::Lines, paper: &mut [Vec<bool>]) -> (usize, u
 }
 
 fn fold(
-    r: &Regex,
+    // r: &Regex,
     instruction: &str,
     paper: &mut [Vec<bool>],
     width: &mut usize,
     height: &mut usize,
 ) {
-    let captures = r.captures(instruction).unwrap();
-    if captures.get(1).unwrap().as_str() == "x" {
-        let x = captures.get(2).unwrap().as_str().parse::<usize>().unwrap();
+    // let captures = r.captures(instruction).unwrap();
+    if &instruction[11..12] == "x" {
+        let x = (&instruction[13..]).parse::<usize>().unwrap();
         for i in x..*width {
             for row in paper.iter_mut().take(*height) {
                 row[x + x - i] |= row[i];
@@ -84,7 +74,7 @@ fn fold(
         }
         *width = x;
     } else {
-        let y = captures.get(2).unwrap().as_str().parse::<usize>().unwrap();
+        let y = (&instruction[13..]).parse::<usize>().unwrap();
         for i in y..*height {
             for x in 0..*width {
                 paper[y + y - i][x] |= paper[i][x];
