@@ -1,7 +1,7 @@
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum Cucumber {
-    Down,
-    Right,
+    Down(usize),
+    Right(usize),
     None,
 }
 
@@ -11,8 +11,8 @@ pub(crate) fn part1(text: &str) {
         .map(|line| {
             line.chars()
                 .map(|c| match c {
-                    'v' => Cucumber::Down,
-                    '>' => Cucumber::Right,
+                    'v' => Cucumber::Down(0),
+                    '>' => Cucumber::Right(0),
                     '.' => Cucumber::None,
                     _ => panic!(),
                 })
@@ -26,59 +26,76 @@ pub(crate) fn part1(text: &str) {
     println!(
         "part1: {}",
         loop {
-            let mut moved = false;
-            let mut new_sea_floor = vec![vec![Cucumber::None; width]; height];
-            for y in 0..height {
-                for x in 0..width {
-                    match sea_floor[y][x] {
-                        Cucumber::Right => {
-                            if x < width - 1 && sea_floor[y][x + 1] == Cucumber::None {
-                                moved = true;
-                                new_sea_floor[y][x + 1] = Cucumber::Right;
-                            } else if x == width - 1 && sea_floor[y][0] == Cucumber::None {
-                                moved = true;
-                                new_sea_floor[y][0] = Cucumber::Right;
-                            } else {
-                                new_sea_floor[y][x] = Cucumber::Right;
-                            }
-                        }
-                        Cucumber::Down => new_sea_floor[y][x] = Cucumber::Down,
-                        Cucumber::None => {}
-                    }
-                }
-            }
-
-            sea_floor = new_sea_floor;
-            new_sea_floor = vec![vec![Cucumber::None; width]; height];
-            for y in 0..height {
-                for x in 0..width {
-                    match sea_floor[y][x] {
-                        Cucumber::Down => {
-                            if y < height - 1 && sea_floor[y + 1][x] == Cucumber::None {
-                                moved = true;
-                                new_sea_floor[y + 1][x] = Cucumber::Down;
-                            } else if y == height - 1 && sea_floor[0][x] == Cucumber::None {
-                                moved = true;
-                                new_sea_floor[0][x] = Cucumber::Down;
-                            } else {
-                                new_sea_floor[y][x] = Cucumber::Down;
-                            }
-                        }
-                        Cucumber::Right => new_sea_floor[y][x] = Cucumber::Right,
-                        Cucumber::None => {}
-                    }
-                }
-            }
             count += 1;
 
-            if moved {
-                sea_floor = new_sea_floor;
-            } else {
+            let mut moved = false;
+            for row in sea_floor.iter_mut() {
+                for x in 0..width {
+                    match row[x] {
+                        Cucumber::Right(c) if c != count => {
+                            if x < width - 1 && row[x + 1] == Cucumber::None {
+                                moved = true;
+                                row[x + 1] = Cucumber::Right(count);
+                                row[x] = Cucumber::None;
+                            } else if x == width - 1
+                                && row[0] == Cucumber::None
+                                && row[1] != Cucumber::Right(count)
+                            {
+                                moved = true;
+                                row[0] = Cucumber::Right(count);
+                                row[x] = Cucumber::None;
+                            }
+                        }
+                        _ => {}
+                    }
+                }
+            }
+
+            for y in 0..height {
+                for x in 0..width {
+                    match sea_floor[y][x] {
+                        Cucumber::Down(c) if c != count => {
+                            if y < height - 1 && sea_floor[y + 1][x] == Cucumber::None {
+                                moved = true;
+                                sea_floor[y + 1][x] = Cucumber::Down(count);
+                                sea_floor[y][x] = Cucumber::None;
+                            } else if y == height - 1
+                                && sea_floor[0][x] == Cucumber::None
+                                && sea_floor[1][x] != Cucumber::Down(count)
+                            {
+                                moved = true;
+                                sea_floor[0][x] = Cucumber::Down(count);
+                                sea_floor[y][x] = Cucumber::None;
+                            }
+                        }
+                        _ => {}
+                    }
+                }
+            }
+
+            if !moved {
                 break count;
             }
         }
     );
 }
-pub(crate) fn part2(_: &str) {
-    todo!()
+
+pub(crate) fn part2(_: &str) {}
+
+#[allow(soft_unstable, unused_imports)]
+mod bench {
+    use super::*;
+    use std::fs::read_to_string;
+    use test::Bencher;
+
+    #[bench]
+    fn day25_part1(b: &mut Bencher) {
+        let text = read_to_string("res/day25.txt").unwrap();
+        b.iter(|| part1(&text));
+    }
+    #[bench]
+    fn day25_part2(b: &mut Bencher) {
+        let text = read_to_string("res/day25.txt").unwrap();
+        b.iter(|| part2(&text));
+    }
 }

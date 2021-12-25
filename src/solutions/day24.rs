@@ -153,12 +153,12 @@ fn find_valid_modelnum(
 ) -> Option<i64> {
     let pc = index * SECTION_LEN + 1;
     if let Some(answer) = cache[index].get(&z) {
-        return answer.clone();
+        return *answer;
     }
     for &w in range {
         let mut data = Data { x: 0, y: 0, z, w };
-        for i in pc..pc + SECTION_LEN - 1 {
-            run_instruction(instructions[i], &mut data);
+        for &instruction in instructions.iter().skip(pc).take(SECTION_LEN - 1) {
+            run_instruction(instruction, &mut data);
         }
         if index == NUM_LEN - 1 {
             if data.z == 0 {
