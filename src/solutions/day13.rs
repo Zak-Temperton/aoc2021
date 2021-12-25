@@ -57,14 +57,7 @@ fn init_paper(lines: &mut std::str::Lines, paper: &mut [Vec<bool>]) -> (usize, u
     (width, height)
 }
 
-fn fold(
-    // r: &Regex,
-    instruction: &str,
-    paper: &mut [Vec<bool>],
-    width: &mut usize,
-    height: &mut usize,
-) {
-    // let captures = r.captures(instruction).unwrap();
+fn fold(instruction: &str, paper: &mut [Vec<bool>], width: &mut usize, height: &mut usize) {
     if &instruction[11..12] == "x" {
         let x = (&instruction[13..]).parse::<usize>().unwrap();
         for i in x..*width {
