@@ -160,3 +160,10 @@ pub(crate) fn day24() {
     day24::part1(&text);
     day24::part2(&text);
 }
+mod day25;
+pub(crate) fn day25() {
+    println!("day25:");
+    let text = read_to_string("res/day25.txt").unwrap();
+    day25::part1(&text);
+    day25::part2(&text);
+}

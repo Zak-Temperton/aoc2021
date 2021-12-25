@@ -42,6 +42,7 @@ fn main() {
         21 => day21(),
         22 => day22(),
         24 => day24(),
+        25 => day25(),
         _ => println!("Choose a valid day"),
     }
 }

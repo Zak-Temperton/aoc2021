@@ -28,3 +28,4 @@ My solutions to Advent of Code 2021 in Rust
 | 22 | [Reactor Reboot](https://adventofcode.com/2021/day/22)           | [day22.rs](src/solutions/day22.rs) |
 | 23 | [Amphipod](https://adventofcode.com/2021/day/23)                 |                                    |
 | 24 | [Arithmetic Logic Unit](https://adventofcode.com/2021/day/24)    | [day24.rs](src/solutions/day24.rs) |
+| 25 | [Sea Cucumber](https://adventofcode.com/2021/day/25)             | [day25.rs](src/solutions/day25.rs) |
