@@ -4,7 +4,7 @@ pub fn part1(text: &str) {
         let mut split = line
             .split(" -> ")
             .flat_map(|s| s.split(','))
-            .map(|s| s.parse().unwrap());
+            .flat_map(|s| s.parse());
         let p1: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
         let p2: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
         if p1.0 == p2.0 || p1.1 == p2.1 {
@@ -31,7 +31,7 @@ pub fn part2(text: &str) {
         let mut split = line
             .split(" -> ")
             .flat_map(|s| s.split(','))
-            .map(|s| s.parse().unwrap());
+            .flat_map(|s| s.parse());
         let p1: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
         let dx = split.next().unwrap() - p1.0;
         let dy = split.next().unwrap() - p1.1;
