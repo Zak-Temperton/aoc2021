@@ -1,31 +1,7 @@
 pub fn part1(text: &str) {
     let mut lines = text.lines();
-    let mut bingos = Vec::new();
-    let order = lines
-        .next()
-        .unwrap()
-        .split(',')
-        .map(|s| s.parse().unwrap())
-        .collect::<Vec<i32>>();
-    loop {
-        if lines.next().is_none() {
-            break;
-        }
-        bingos.push({
-            let mut out = Vec::new();
-            for _ in 0..5 {
-                out.push(
-                    lines
-                        .next()
-                        .unwrap()
-                        .split_whitespace()
-                        .map(|s| s.parse().unwrap())
-                        .collect::<Vec<i32>>(),
-                )
-            }
-            out
-        });
-    }
+    let order = parse_order(&mut lines);
+    let bingos = parse_bingos(lines);
     println!("part1: {}", result1(bingos, order));
 }
 
@@ -65,13 +41,22 @@ fn result1(mut bingos: Vec<Vec<Vec<i32>>>, order: Vec<i32>) -> i32 {
 
 pub fn part2(text: &str) {
     let mut lines = text.lines();
-    let mut bingos = Vec::new();
-    let order = lines
+    let order = parse_order(&mut lines);
+    let bingos = parse_bingos(lines);
+    println!("part2: {}", result2(bingos, order));
+}
+
+fn parse_order(lines: &mut std::str::Lines) -> Vec<i32> {
+    lines
         .next()
         .unwrap()
         .split(',')
         .map(|s| s.parse().unwrap())
-        .collect::<Vec<i32>>();
+        .collect::<Vec<i32>>()
+}
+
+fn parse_bingos(mut lines: std::str::Lines) -> Vec<Vec<Vec<i32>>> {
+    let mut bingos = Vec::new();
     loop {
         if lines.next().is_none() {
             break;
@@ -91,7 +76,7 @@ pub fn part2(text: &str) {
             out
         });
     }
-    println!("part2: {}", result2(bingos, order));
+    bingos
 }
 
 fn result2(mut bingos: Vec<Vec<Vec<i32>>>, order: Vec<i32>) -> i32 {
