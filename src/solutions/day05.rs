@@ -3,8 +3,7 @@ pub fn part1(text: &str) {
     for line in text.lines() {
         let mut split = line
             .split(" -> ")
-            .map(|s| s.split(','))
-            .flatten()
+            .flat_map(|s| s.split(','))
             .map(|s| s.parse().unwrap());
         let p1: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
         let p2: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
@@ -31,8 +30,7 @@ pub fn part2(text: &str) {
     for line in text.lines() {
         let mut split = line
             .split(" -> ")
-            .map(|s| s.split(','))
-            .flatten()
+            .flat_map(|s| s.split(','))
             .map(|s| s.parse().unwrap());
         let p1: (i32, i32) = (split.next().unwrap(), split.next().unwrap());
         let dx = split.next().unwrap() - p1.0;

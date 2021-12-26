@@ -77,10 +77,8 @@ fn sum_versions(packet: &[u8]) -> (usize, usize) {
 pub fn part1(text: &str) {
     let packet = text
         .chars()
-        .map(|c| from_hex(c).iter().copied())
-        .flatten()
+        .flat_map(|c| from_hex(c).iter().copied())
         .collect::<Vec<u8>>();
-
     println!("part1: {}", sum_versions(&packet).0);
 }
 

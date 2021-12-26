@@ -13,7 +13,7 @@ pub fn part2(text: &str) {
 fn solve(text: &str, turns: usize) -> VecDeque<usize> {
     let mut trumpetfish = VecDeque::from([0; 9]);
     text.split(',')
-        .map(|s| s.parse::<usize>().unwrap())
+        .flat_map(|s| s.parse::<usize>())
         .for_each(|f| trumpetfish[f] += 1);
     for _ in 0..turns {
         let new_fish = trumpetfish.pop_front().unwrap();

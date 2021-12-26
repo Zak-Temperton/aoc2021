@@ -4,8 +4,7 @@ pub fn part1(text: &str) {
         count += line
             .split('|')
             .skip(1)
-            .map(|s| s.split_whitespace())
-            .flatten()
+            .flat_map(|s| s.split_whitespace())
             .fold(0, |f, s| match s.len() {
                 2 | 3 | 4 | 7 => f + 1,
                 _ => f,
